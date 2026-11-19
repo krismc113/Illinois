@@ -1,40 +1,5 @@
 [
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Illinois County Public Health Analysis",
-    "section": "",
-    "text": "This project examines community health needs, healthcare access, and geographic differences across Illinois. By integrating hospital Community Health Needs Assessments (CHNAs), local health department Illinois Project for Local Assessment of Needs (IPLAN) priorities, and county-level demographic and socioeconomic data, the analysis explores how public health priorities and community characteristics vary across the state.\nA central focus of the project is examining alignment between hospital-identified health needs and local public health priorities. Analyses also explore how geographic location, poverty, insurance coverage, and population characteristics relate to differences in community health priorities. Together, these findings provide insight into the distribution of health needs and disparities across Illinois."
-  },
-  {
-    "objectID": "index.html#about-the-project",
-    "href": "index.html#about-the-project",
-    "title": "Illinois County Public Health Analysis",
-    "section": "",
-    "text": "This project examines community health needs, healthcare access, and geographic differences across Illinois. By integrating hospital Community Health Needs Assessments (CHNAs), local health department Illinois Project for Local Assessment of Needs (IPLAN) priorities, and county-level demographic and socioeconomic data, the analysis explores how public health priorities and community characteristics vary across the state.\nA central focus of the project is examining alignment between hospital-identified health needs and local public health priorities. Analyses also explore how geographic location, poverty, insurance coverage, and population characteristics relate to differences in community health priorities. Together, these findings provide insight into the distribution of health needs and disparities across Illinois."
-  },
-  {
-    "objectID": "index.html#project-objectives",
-    "href": "index.html#project-objectives",
-    "title": "Illinois County Public Health Analysis",
-    "section": "Project Objectives",
-    "text": "Project Objectives\n\nCompare community health priorities: Examine alignment and differences between hospital CHNA and local health department IPLAN priorities.\nExplore geographic variation: Identify differences in health priorities across Chicago, Suburban Cook, Suburban Non-Cook, Urban Non-Cook, and Rural areas.\nExamine socioeconomic patterns: Explore how poverty and uninsured rates relate to the health priorities identified by local jurisdictions.\nAssess population characteristics: Examine demographic and socioeconomic differences across Illinois counties.\nInform public health planning: Present findings through data visualizations and geographic comparisons to support discussions about community health needs, healthcare access, and resource allocation."
-  },
-  {
-    "objectID": "index.html#project-report-and-documentation",
-    "href": "index.html#project-report-and-documentation",
-    "title": "Illinois County Public Health Analysis",
-    "section": "Project Report and Documentation",
-    "text": "Project Report and Documentation\nThe accompanying report provides a detailed overview of the project background, data sources, methodology, analytical approach, and findings. It includes descriptive statistics, comparisons of hospital and public health priorities, geographic analyses, and socioeconomic comparisons."
-  },
-  {
-    "objectID": "index.html#data-considerations",
-    "href": "index.html#data-considerations",
-    "title": "Illinois County Public Health Analysis",
-    "section": "Data Considerations",
-    "text": "Data Considerations\nAnalyses are based on available hospital CHNA reports, local health department IPLAN assessments, and county-level demographic and socioeconomic data. Not all hospitals and counties had available assessment information, and reporting periods varied across sources.\nSome geographic comparisons, particularly those involving Chicago and Suburban Cook IPLAN assessments, are based on individual jurisdictional assessments. These findings should be interpreted within the context of the available data.\nDemographic and socioeconomic analyses use aggregated county-level information and should not be interpreted as evidence of individual-level relationships or causation. Findings describe observed patterns and associations rather than establishing causal relationships."
-  },
-  {
     "objectID": "method.html",
     "href": "method.html",
     "title": "Methodology",
@@ -166,6 +131,41 @@
     "title": "Health Priorities & Population",
     "section": "",
     "text": "Findings reflect available hospital CHNA reports, local health department IPLAN assessments, and county-level demographic and socioeconomic data. Not all counties and hospitals had available assessment information, and reporting years varied. Geographic comparisons were organized into five mutually defined groups to distinguish Chicago from Suburban Cook and other urban and rural areas.\nSome geographic comparisons, particularly Chicago and Suburban Cook IPLAN analyses, are based on a single local health department assessment. These findings should therefore be interpreted as jurisdiction-specific observations rather than estimates representative of multiple jurisdictions.\nDemographic and socioeconomic comparisons are based on aggregated county-level data and should not be interpreted as evidence of individual-level relationships or causation. Additionally, the frequency with which a health topic is identified reflects assessment priorities and does not necessarily measure the prevalence or severity of the underlying health condition."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Illinois County Public Health Analysis",
+    "section": "",
+    "text": "This project examines community health needs, healthcare access, and geographic differences across Illinois. By integrating hospital Community Health Needs Assessments (CHNAs), local health department Illinois Project for Local Assessment of Needs (IPLAN) priorities, and county-level demographic and socioeconomic data, the analysis explores how public health priorities and community characteristics vary across the state.\nA central focus of the project is examining alignment between hospital-identified health needs and local public health priorities. Analyses also explore how geographic location, poverty, insurance coverage, and population characteristics relate to differences in community health priorities. Together, these findings provide insight into the distribution of health needs and disparities across Illinois."
+  },
+  {
+    "objectID": "index.html#about-the-project",
+    "href": "index.html#about-the-project",
+    "title": "Illinois County Public Health Analysis",
+    "section": "",
+    "text": "This project examines community health needs, healthcare access, and geographic differences across Illinois. By integrating hospital Community Health Needs Assessments (CHNAs), local health department Illinois Project for Local Assessment of Needs (IPLAN) priorities, and county-level demographic and socioeconomic data, the analysis explores how public health priorities and community characteristics vary across the state.\nA central focus of the project is examining alignment between hospital-identified health needs and local public health priorities. Analyses also explore how geographic location, poverty, insurance coverage, and population characteristics relate to differences in community health priorities. Together, these findings provide insight into the distribution of health needs and disparities across Illinois."
+  },
+  {
+    "objectID": "index.html#project-objectives",
+    "href": "index.html#project-objectives",
+    "title": "Illinois County Public Health Analysis",
+    "section": "Project Objectives",
+    "text": "Project Objectives\n\nCompare community health priorities: Examine alignment and differences between hospital CHNA and local health department IPLAN priorities.\nExplore geographic variation: Identify differences in health priorities across Chicago, Suburban Cook, Suburban Non-Cook, Urban Non-Cook, and Rural areas.\nExamine socioeconomic patterns: Explore how poverty and uninsured rates relate to the health priorities identified by local jurisdictions.\nAssess population characteristics: Examine demographic and socioeconomic differences across Illinois counties.\nInform public health planning: Present findings through data visualizations and geographic comparisons to support discussions about community health needs, healthcare access, and resource allocation."
+  },
+  {
+    "objectID": "index.html#project-report-and-documentation",
+    "href": "index.html#project-report-and-documentation",
+    "title": "Illinois County Public Health Analysis",
+    "section": "Project Report and Documentation",
+    "text": "Project Report and Documentation\nThe accompanying report provides a detailed overview of the project background, data sources, methodology, analytical approach, and findings. It includes descriptive statistics, comparisons of hospital and public health priorities, geographic analyses, and socioeconomic comparisons."
+  },
+  {
+    "objectID": "index.html#data-considerations",
+    "href": "index.html#data-considerations",
+    "title": "Illinois County Public Health Analysis",
+    "section": "Data Considerations",
+    "text": "Data Considerations\nAnalyses are based on available hospital CHNA reports, local health department IPLAN assessments, and county-level demographic and socioeconomic data. Not all hospitals and counties had available assessment information, and reporting periods varied across sources.\nSome geographic comparisons, particularly those involving Chicago and Suburban Cook IPLAN assessments, are based on individual jurisdictional assessments. These findings should be interpreted within the context of the available data.\nDemographic and socioeconomic analyses use aggregated county-level information and should not be interpreted as evidence of individual-level relationships or causation. Findings describe observed patterns and associations rather than establishing causal relationships."
   },
   {
     "objectID": "gismap.html",

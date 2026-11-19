@@ -161,11 +161,32 @@
     "text": "Project Report and Documentation\nThe accompanying report provides a detailed overview of the project background, data sources, methodology, analytical approach, and findings. It includes descriptive statistics, comparisons of hospital and public health priorities, geographic analyses, and socioeconomic comparisons."
   },
   {
-    "objectID": "index.html#data-considerations",
-    "href": "index.html#data-considerations",
+    "objectID": "index.html#intended-audience",
+    "href": "index.html#intended-audience",
     "title": "Illinois County Public Health Analysis",
-    "section": "Data Considerations",
-    "text": "Data Considerations\nAnalyses are based on available hospital CHNA reports, local health department IPLAN assessments, and county-level demographic and socioeconomic data. Not all hospitals and counties had available assessment information, and reporting periods varied across sources.\nSome geographic comparisons, particularly those involving Chicago and Suburban Cook IPLAN assessments, are based on individual jurisdictional assessments. These findings should be interpreted within the context of the available data.\nDemographic and socioeconomic analyses use aggregated county-level information and should not be interpreted as evidence of individual-level relationships or causation. Findings describe observed patterns and associations rather than establishing causal relationships."
+    "section": "Intended Audience",
+    "text": "Intended Audience\nThe intended audience includes Illinois public health professionals, policymakers, healthcare organizations, local health departments, and community stakeholders. This project also supports ongoing work with the Illinois Department of Public Health (IDPH) to develop a statewide Report on Patient Access to Care for the Illinois General Assembly. The analysis is intended to help inform policymakers about healthcare access, population health needs, and geographic inequities across Illinois."
+  },
+  {
+    "objectID": "index.html#major-findings",
+    "href": "index.html#major-findings",
+    "title": "Illinois County Public Health Analysis",
+    "section": "Major Findings",
+    "text": "Major Findings\nThe analysis highlights differences and areas of alignment between hospital Community Health Needs Assessments (CHNAs) and county-level Illinois Project for Local Assessment of Needs (IPLANs). Comparing these priorities provides insight into how healthcare organizations and local public health departments identify and address community health needs.\nGeographic and socioeconomic characteristics, including poverty, insurance coverage, population demographics, and rurality, provide additional context for understanding differences in community health priorities across Illinois. The findings emphasize the importance of examining health needs within their local geographic and socioeconomic contexts."
+  },
+  {
+    "objectID": "index.html#recommendations",
+    "href": "index.html#recommendations",
+    "title": "Illinois County Public Health Analysis",
+    "section": "Recommendations",
+    "text": "Recommendations\nBased on the analysis, the following recommendations can help strengthen community health planning and resource allocation across Illinois:\n\nStrengthen collaboration: Encourage greater coordination between hospitals and local health departments to align community health priorities and develop shared strategies.\nAddress health inequities: Prioritize communities experiencing greater socioeconomic disadvantages and barriers to healthcare access.\nUse geographic data for planning: Incorporate GIS mapping and county-level demographic information to identify underserved areas and guide resource allocation.\nImprove data consistency: Promote standardized reporting, consistent priority classifications, and more complete community health assessment data to support meaningful comparisons across counties and healthcare organizations."
+  },
+  {
+    "objectID": "index.html#lessons-learned",
+    "href": "index.html#lessons-learned",
+    "title": "Illinois County Public Health Analysis",
+    "section": "Lessons Learned",
+    "text": "Lessons Learned\nThis project demonstrated the importance of integrating multiple data sources to better understand community health needs and geographic differences across Illinois.\nSeveral lessons emerged throughout the analysis:\n\nData quality and availability matter: Differences in reporting periods, assessment methods, and data completeness can affect comparisons between hospitals and counties.\nGeographic context is essential: Statewide patterns may overlook important differences between urban, suburban, and rural communities.\nStandardization improves comparisons: Consistent categorization of health priorities makes it easier to identify areas of overlap and differences across assessments.\nMultiple data sources provide a broader perspective: Combining hospital assessments, county health priorities, and demographic and socioeconomic indicators provides a more comprehensive understanding of community health needs.\n\nOverall, this analysis reinforces the value of data-driven public health planning that considers both identified health priorities and the geographic and socioeconomic conditions that shape community health."
   },
   {
     "objectID": "gismap.html",

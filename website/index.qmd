@@ -36,7 +36,7 @@ The accompanying report provides a detailed overview of the project background, 
 
 ## Intended Audience
 
-Illinois public health professionals, policymakers, healthcare organizations, local health departments, and community stakeholders.
+The intended audience includes Illinois public health professionals, policymakers, healthcare organizations, local health departments, and community stakeholders. This project also supports ongoing work with the Illinois Department of Public Health (IDPH) to develop a statewide Report on Patient Access to Care for the Illinois General Assembly. The analysis is intended to help inform policymakers about healthcare access, population health needs, and geographic inequities across Illinois.
 
 ## Major Findings
 

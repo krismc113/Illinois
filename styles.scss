@@ -1,0 +1,261 @@
+
+/*-- scss:defaults --*/
+
+$primary: #142D4E;
+$body-bg: #FFFFFF;
+$body-color: #26374A;
+$link-color: #315D87;
+$headings-color: #142D4E;
+
+$font-family-sans-serif: "Times New Roman", Times, serif;
+$headings-font-family: "Times New Roman", Times, serif;
+
+
+/*-- scss:rules --*/
+
+/* --------------------------------
+   GENERAL PAGE STYLING
+-------------------------------- */
+
+body {
+  font-family: "Times New Roman", Times, serif;
+  background-color: #FFFFFF;
+  color: #26374A;
+  font-size: 17px;
+  line-height: 1.8;
+  letter-spacing: 0.1px;
+}
+
+/* Main content width and spacing */
+#quarto-content {
+  padding-top: 1.5rem;
+}
+
+main {
+  padding-bottom: 3rem;
+}
+
+/* --------------------------------
+   NAVIGATION BAR
+-------------------------------- */
+
+.navbar {
+  background-color: #142D4E !important;
+  border-bottom: 3px solid #B7CBE0;
+  box-shadow: 0 2px 8px rgba(20, 45, 78, 0.12);
+}
+
+.navbar .navbar-brand {
+  color: #FFFFFF !important;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 21px;
+  font-weight: bold;
+  letter-spacing: 0.4px;
+}
+
+.navbar .nav-link {
+  color: #FFFFFF !important;
+  font-size: 16px;
+  transition: color 0.2s ease;
+}
+
+.navbar .nav-link:hover {
+  color: #B7CBE0 !important;
+}
+
+/* --------------------------------
+   TITLE BANNER
+-------------------------------- */
+
+.quarto-title-banner {
+  background: linear-gradient(
+    120deg,
+    #142D4E 0%,
+    #203F63 100%
+  ) !important;
+  color: #FFFFFF !important;
+  padding: 4rem 2rem;
+  border-bottom: 5px solid #B7CBE0;
+}
+
+.quarto-title-banner .title {
+  color: #FFFFFF !important;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 2.7rem;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  line-height: 1.25;
+}
+
+.quarto-title-banner .subtitle {
+  color: #E3ECF5 !important;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 1.25rem;
+  font-style: italic;
+  margin-top: 1rem;
+}
+
+/* --------------------------------
+   HEADINGS
+-------------------------------- */
+
+h1, h2, h3, h4, h5 {
+  font-family: "Times New Roman", Times, serif;
+  color: #142D4E;
+  font-weight: bold;
+}
+
+h1 {
+  font-size: 2.3rem;
+  letter-spacing: 0.3px;
+}
+
+h2 {
+  font-size: 1.8rem;
+  border-bottom: 2px solid #D5E1EF;
+  padding-bottom: 0.65rem;
+  margin-top: 3rem;
+  margin-bottom: 1.3rem;
+}
+
+h3 {
+  font-size: 1.4rem;
+  color: #315D87;
+  margin-top: 1.8rem;
+  margin-bottom: 0.8rem;
+}
+
+h4 {
+  font-size: 1.15rem;
+  color: #456B96;
+}
+
+/* --------------------------------
+   BODY TEXT
+-------------------------------- */
+
+p {
+  margin-bottom: 1.1rem;
+  text-align: justify;
+}
+
+strong {
+  color: #142D4E;
+}
+
+blockquote {
+  border-left: 4px solid #8FAECC;
+  background-color: #F5F8FC;
+  padding: 1rem 1.5rem;
+  color: #40546B;
+  font-style: italic;
+}
+
+/* --------------------------------
+   LINKS
+-------------------------------- */
+
+a {
+  color: #315D87;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: #142D4E;
+  text-decoration: underline;
+}
+
+/* --------------------------------
+   TABLES
+-------------------------------- */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 16px;
+}
+
+thead {
+  background-color: #142D4E;
+  color: #FFFFFF;
+}
+
+thead th {
+  color: #FFFFFF;
+  font-weight: bold;
+  padding: 12px;
+}
+
+tbody td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #D5E1EF;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #F5F8FC;
+}
+
+/* --------------------------------
+   GIS MAPS AND PDF FRAMES
+-------------------------------- */
+
+iframe {
+  display: block;
+  width: 100%;
+  background-color: #FFFFFF;
+  border: 1px solid #C7D5E5;
+  border-radius: 8px;
+  margin-top: 1.2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 3px 12px rgba(20, 45, 78, 0.08);
+}
+
+/* --------------------------------
+   IMAGES AND FIGURES
+-------------------------------- */
+
+figure {
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+figcaption {
+  color: #64778C;
+  font-size: 15px;
+  font-style: italic;
+  text-align: center;
+  margin-top: 0.6rem;
+}
+
+/* --------------------------------
+   CODE BLOCKS
+-------------------------------- */
+
+pre {
+  border: 1px solid #D5E1EF;
+  border-radius: 8px;
+  background-color: #F5F8FC;
+}
+
+/* --------------------------------
+   SELECTED TEXT
+-------------------------------- */
+
+::selection {
+  background: #D5E5F5;
+  color: #142D4E;
+}
+
+/* --------------------------------
+   FOOTER
+-------------------------------- */
+
+.nav-footer {
+  border-top: 2px solid #D5E1EF;
+  color: #64778C;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 14px;
+  padding-top: 1.2rem;
+}

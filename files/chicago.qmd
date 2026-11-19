@@ -1,0 +1,209 @@
+---
+title: "chicago"
+format: html
+editor: visual
+---
+
+## Libraries
+
+```{r}
+library(tidyverse)
+library(patchwork)
+library(grid)
+library(dplyr)
+library(tidyr)
+library(stringr)
+library(ggplot2)
+library(broom)
+library(betareg)
+library(maps)
+library(sf)
+
+```
+
+```{r, chicago-data}
+
+cook_chicago_iplan <- readr::read_csv("data/cookchicagoiplan.csv")
+
+# Identify Chicago hospitals
+chicago_chna <- cook_chicago %>%
+  filter(City == "Chicago") %>%
+  mutate(Geographic_Group = "Chicago")
+
+# Identify Chicago IPLAN
+chicago_iplan <- cook_chicago_iplan %>%
+  filter(City == "Chicago")
+
+# Rename fifth priority column
+names(chicago_iplan)[names(chicago_iplan) == "Unnamed: 6"] <- "Priority 5"
+
+chicago_iplan <- chicago_iplan %>%
+  mutate(Geographic_Group = "Chicago")
+
+# Check counts
+nrow(chicago_chna)
+nrow(chicago_iplan)
+
+```
+
+## CHNA Priorities
+
+```{r, chicago-chna-priorities}
+
+chicago_priority_long <- chicago_chna %>%
+  pivot_longer(
+    cols = starts_with("Priority"),
+    names_to = "Priority",
+    values_to = "Topic"
+  ) %>%
+  mutate(
+    Topic = str_trim(Topic)
+  ) %>%
+  filter(!is.na(Topic), Topic != "")
+
+```
+
+
+## IPLAN Priorities
+
+```{r, chicago-iplan-priorities}
+
+chicago_iplan_long <- chicago_iplan %>%
+  pivot_longer(
+    cols = starts_with("Priority"),
+    names_to = "Priority",
+    values_to = "Topic"
+  ) %>%
+  mutate(
+    Topic = str_trim(Topic)
+  ) %>%
+  filter(!is.na(Topic), Topic != "")
+  
+```
+
+## Unique Hospitals
+
+```{r, chicago-hospital-priority}
+
+chicago_hospital_priority <- chicago_priority_long %>%
+  filter(!is.na(`Hospital ID`)) %>%
+  distinct(`Hospital ID`, Priority, Topic) %>%
+  count(Priority, Topic, name = "Hospitals")
+
+```
+
+
+## Unique IPLAN Priorities
+
+```{r, chicago-iplan-summary}
+
+chicago_iplan_priority <- chicago_iplan_long %>%
+  distinct(Priority, Topic) %>%
+  count(Priority, Topic, name = "Health_Departments")
+
+chicago_iplan_priority
+
+```
+
+## Chicago CHNA Priority Plot
+
+```{r, chicago-priority-plot}
+
+make_chicago_plot <- function(priority_number) {
+
+  plot_data <- chicago_hospital_priority %>%
+    filter(Priority == paste0("Priority ", priority_number)) %>%
+    arrange(Hospitals)
+
+  ggplot(
+    plot_data,
+    aes(
+      x = Hospitals,
+      y = reorder(Topic, Hospitals),
+      fill = Topic
+    )
+  ) +
+    geom_col(width = 0.7) +
+
+    geom_text(
+      aes(label = Hospitals),
+      hjust = -0.2,
+      size = 2
+    ) +
+
+    scale_fill_manual(values = topic_colors) +
+
+    scale_x_continuous(
+      breaks = seq(0, 30, by = 5),
+      expand = expansion(mult = c(0, 0.12))
+    ) +
+
+    labs(
+      title = paste("Priority", priority_number),
+      x = NULL,
+      y = NULL
+    ) +
+
+    theme_minimal() +
+
+    theme(
+      plot.title = element_text(size = 9, face = "bold"),
+      axis.text.y = element_text(size = 5),
+      axis.text.x = element_text(size = 9),
+      legend.position = "none",
+      panel.grid.major.y = element_blank()
+    )
+}
+
+```
+
+
+## Final Chicago CHNA Column Plot
+
+```{r, final-chicago-plot}
+
+p1 <- make_chicago_plot(1)
+p2 <- make_chicago_plot(2)
+p3 <- make_chicago_plot(3)
+p4 <- make_chicago_plot(4)
+p5 <- make_chicago_plot(5)
+
+p1 <- p1 +
+  labs(y = "Health Topic") +
+  theme(
+    axis.title.y = element_text(
+      size = 12,
+      margin = margin(r = 10)
+    )
+  )
+
+chicago_final_plot <- (p1 | p2) /
+  (p3 | p4) /
+  (p5 | plot_spacer()) +
+  plot_layout(guides = "collect") +
+  plot_annotation(
+    title = "Distribution of CHNA Health Priorities Across Chicago Hospitals",
+    caption = "Number of Hospitals Identifying Each Topic",
+    theme = theme(
+      plot.title = element_text(size = 15, face = "bold"),
+      plot.caption = element_text(size = 12, hjust = 0.5)
+    )
+  )
+
+chicago_final_plot
+
+```
+
+## Save
+
+```{r, save}
+
+ggsave(
+  filename = "graph/chicago.png",
+  plot = chicago_final_plot,
+  width = 12,
+  height = 8,
+  dpi = 300
+)
+
+```

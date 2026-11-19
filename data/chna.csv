@@ -1,0 +1,170 @@
+Hospital ID,City,County,Priority 1,Priority 2,Priority 3 ,Priority 4 ,Priority 5
+H001,Quincy,Will,Behavioral and Mental Health,Access to Care and Healthcare Equity,Healthy Behaviors and Wellness,,
+H002,Greenville,Du Page,Behavioral and Mental Health,Access to Care and Healthcare Equity,Chronic Disease Management,,
+H003,Belvidere,Du Page,Access to Care and Healthcare Equity,Behavioral and Mental Health,Chronic Disease Management,,
+H004,La Grange,Cook,Access to Care and Healthcare Equity,Behavioral and Mental Health,Chronic Disease Management,,
+H005,Princeton,Lake,Behavioral and Mental Health,Healthy Behaviors and Wellness,Chronic Disease Management,,
+H006,Oak Lawn,Cook,Social Determinants of Health,Behavioral and Mental Health,Chronic Disease Management,,
+H007,Urbana,Lake,Behavioral and Mental Health,Healthy Behaviors and Wellness,,,
+H008,Chicago,Cook,Behavioral and Mental Health,Access to Care and Healthcare Equity,Chronic Disease Management,,
+H009,Pana,Kane,Access to Care and Healthcare Equity,Behavioral and Mental Health,Social Determinants of Health,,
+H010,Hazel Crest,Cook,Behavioral and Mental Health,Chronic Disease Management,,,
+H011,Chicago,Cook,Behavioral and Mental Health,Healthy Behaviors and Wellness,,,
+H012,Hoffman Estates,Cook,Access to Care and Healthcare Equity,Behavioral and Mental Health,Social Determinants of Health,,
+H013,Elk Grove Village,Cook,Chronic Disease Management,Behavioral and Mental Health,Access to Care and Healthcare Equity,Social Determinants of Health,
+H014,Taylorville,Madison,Behavioral and Mental Health,Healthy Behaviors and Wellness,,,
+H015,Breese,Madison,Chronic Disease Management,Access to Care and Healthcare Equity,Behavioral and Mental Health,Behavioral and Mental Health,Access to Care and Healthcare Equity
+H016,Chicago,Cook,Social Determinants of Health,Chronic Disease Management,Behavioral and Mental Health,Social Determinants of Health,
+H017,Mattoon,Pike,Access to Care and Healthcare Equity,Access to Care and Healthcare Equity,Behavioral and Mental Health,Behavioral and Mental Health,
+H018,Robinson,Adams,Social Determinants of Health,Social Determinants of Health,Behavioral and Mental Health,,
+H019,DeKalb,Mc Lean,Access to Care and Healthcare Equity,Behavioral and Mental Health,Chronic Disease Management,Healthy Behaviors and Wellness,Infectious Disease Prevention and Control
+H020,Sandwich,Woodford,Social Determinants of Health,Behavioral and Mental Health,Chronic Disease Management,,
+H021,Glendale Heights,Macoupin,Access to Care and Healthcare Equity,Behavioral and Mental Health,Social Determinants of Health,Access to Care and Healthcare Equity,
+H022,Hinsdale,Du Page,Access to Care and Healthcare Equity,Behavioral and Mental Health,Social Determinants of Health,,
+H023,Winfield,Macoupin,Behavioral and Mental Health,Access to Care and Healthcare Equity,Social Determinants of Health,,
+H024,Naperville,Kane,Access to Care and Healthcare Equity,Behavioral and Mental Health,Chronic Disease Management,Social Determinants of Health,
+H025,Elmhurst,Crawford,Chronic Disease Management,Behavioral and Mental Health,Access to Care and Healthcare Equity,,
+H026,Downers Grove,Jefferson,Access to Care and Healthcare Equity,Access to Care and Healthcare Equity,Social Determinants of Health,,
+H027,Wheaton,Randolph,Access to Care and Healthcare Equity,Access to Care and Healthcare Equity,Access to Care and Healthcare Equity,,
+H028,Hinsdale,Union,Access to Care and Healthcare Equity,Access to Care and Healthcare Equity,Social Determinants of Health,,
+H029,Paris,Williamson,Access to Care and Healthcare Equity,Access to Care and Healthcare Equity,Social Determinants of Health,,
+H030,Effingham,Macon,Behavioral and Mental Health,Social Determinants of Health,Chronic Disease Management,Social Determinants of Health,
+H031,Vandalia,Kane,Access to Care and Healthcare Equity,Behavioral and Mental Health,Behavioral and Mental Health,,
+H032,Gibson City,Du Page,Behavioral and Mental Health,Healthy Behaviors and Wellness,Chronic Disease Management,Chronic Disease Management,Access to Care and Healthcare Equity
+H033,Canton,Du Page,Behavioral and Mental Health,Healthy Behaviors and Wellness,Chronic Disease Management,Chronic Disease Management,Access to Care and Healthcare Equity
+H034,Evanston,Cook,Behavioral and Mental Health,Healthy Behaviors and Wellness,Chronic Disease Management,Chronic Disease Management,Access to Care and Healthcare Equity
+H035,Glenview,Cook,Behavioral and Mental Health,Healthy Behaviors and Wellness,Chronic Disease Management,Chronic Disease Management,Access to Care and Healthcare Equity
+H036,Carrollton,Lake,Behavioral and Mental Health,Healthy Behaviors and Wellness,Chronic Disease Management,Chronic Disease Management,Access to Care and Healthcare Equity
+H037,Skokie,Cook,Behavioral and Mental Health,Healthy Behaviors and Wellness,Chronic Disease Management,Chronic Disease Management,Access to Care and Healthcare Equity
+H038,Morris,Wayne,Behavioral and Mental Health,Access to Care and Healthcare Equity,Healthy Behaviors and Wellness,,
+H039,McLeansboro,Saline,Access to Care and Healthcare Equity,Access to Care and Healthcare Equity,,,
+H040,Carthage,Stephenson,Access to Care and Healthcare Equity,Healthy Behaviors and Wellness,Chronic Disease Management,,
+H041,Olympia Fields,Cook,Behavioral and Mental Health,Chronic Disease Management,Chronic Disease Management,,
+H042,Rosiclare,Rock Island,Behavioral and Mental Health,Access to Care and Healthcare Equity,Healthy Behaviors and Wellness,Chronic Disease Management,Chronic Disease Management
+H043,Geneseo,Mercer,Behavioral and Mental Health,Access to Care and Healthcare Equity,Chronic Disease Management,Healthy Behaviors and Wellness,Access to Care and Healthcare Equity
+H044,Kewanee,Ford,Behavioral and Mental Health,Behavioral and Mental Health,Healthy Behaviors and Wellness,,
+H045,Watseka,Du Page,Behavioral and Mental Health,Behavioral and Mental Health,Access to Care and Healthcare Equity,,
+H046,Carbondale,Jefferson,Behavioral and Mental Health,Social Determinants of Health,,,
+H047,Berwyn,Cook,Behavioral and Mental Health,Access to Care and Healthcare Equity,Chronic Disease Management,Access to Care and Healthcare Equity,"Maternal, Infant, and Child Health"
+H048,Melrose Park,Cook,Behavioral and Mental Health,Access to Care and Healthcare Equity,Chronic Disease Management,Access to Care and Healthcare Equity,"Maternal, Infant, and Child Health"
+H049,Murphysboro,Fulton,Access to Care and Healthcare Equity,Social Determinants of Health,Behavioral and Mental Health,,
+H050,Mt Vernon,Peoria,Behavioral and Mental Health,Behavioral and Mental Health,,,
+H051,Mt. Vernon,Hamilton,Behavioral and Mental Health,"Maternal, Infant, and Child Health",Access to Care and Healthcare Equity,Access to Care and Healthcare Equity,Chronic Disease Management
+H052,Jerseyville,Henry,Behavioral and Mental Health,Healthy Behaviors and Wellness,Behavioral and Mental Health,,
+H053,Galena,Hardin,Chronic Disease Management,Behavioral and Mental Health,Behavioral and Mental Health,Social Determinants of Health,Social Determinants of Health
+H054,Elgin,Saline,Access to Care and Healthcare Equity,Behavioral and Mental Health,Chronic Disease Management,,
+H055,Aurora,Williamson,Access to Care and Healthcare Equity,Behavioral and Mental Health,Chronic Disease Management,,
+H056,Geneva,Montgomery,Access to Care and Healthcare Equity,Access to Care and Healthcare Equity,Healthy Behaviors and Wellness,,
+H057,Chicago,Cook,Access to Care and Healthcare Equity,Behavioral and Mental Health,Social Determinants of Health,"Maternal, Infant, and Child Health",Infectious Disease Prevention and Control
+H058,Des Plaines,Cook,Behavioral and Mental Health,Chronic Disease Management,"Maternal, Infant, and Child Health",Injury Prevention and Safety,
+H059,Elgin,Vermilion,Behavioral and Mental Health,Social Determinants of Health,Access to Care and Healthcare Equity,,
+H060,Kankakee,Tazewell,Access to Care and Healthcare Equity,Behavioral and Mental Health,Chronic Disease Management,,
+H061,Kankakee,Shelby,Behavioral and Mental Health,Chronic Disease Management,Access to Care and Healthcare Equity,,
+H062,Galesburg,Bond,Behavioral and Mental Health,Chronic Disease Management,Behavioral and Mental Health,,
+H063,Mendota,St Clair,Behavioral and Mental Health,Chronic Disease Management,Healthy Behaviors and Wellness,,
+H064,Chicago,Cook,Social Determinants of Health,Chronic Disease Management,Chronic Disease Management,Behavioral and Mental Health,Access to Care and Healthcare Equity
+H065,Harvey,Cook,Chronic Disease Management,Access to Care and Healthcare Equity,Social Determinants of Health,,
+H066,Chicago,Cook,Behavioral and Mental Health,"Maternal, Infant, and Child Health",Chronic Disease Management,Access to Care and Healthcare Equity,Social Determinants of Health
+H067,Peru,Iroquois,Access to Care and Healthcare Equity,Healthy Behaviors and Wellness,Behavioral and Mental Health,"Maternal, Infant, and Child Health",
+H068,Chicago,Cook,Behavioral and Mental Health,Aging Population and Senior Health,Behavioral and Mental Health,Chronic Disease Management,Chronic Disease Management
+H069,Libertyville,Winnebago,Access to Care and Healthcare Equity,Behavioral and Mental Health,,,
+H070,Barrington,Jersey,Access to Care and Healthcare Equity,Chronic Disease Management,Behavioral and Mental Health,,
+H071,Chicago,Cook,Behavioral and Mental Health,Chronic Disease Management,Behavioral and Mental Health,Social Determinants of Health,Social Determinants of Health
+H072,Highland Park,Piatt,Behavioral and Mental Health,Access to Care and Healthcare Equity,Chronic Disease Management,,
+H073,Zion,De Kalb,Access to Care and Healthcare Equity,Behavioral and Mental Health,Chronic Disease Management,,
+H074,Chicago,Cook,Behavioral and Mental Health,Behavioral and Mental Health,Behavioral and Mental Health,Chronic Disease Management,Chronic Disease Management
+H075,Lake Forest,Lawrence,Behavioral and Mental Health,Access to Care and Healthcare Equity,Chronic Disease Management,,
+H076,Chicago,Cook,Chronic Disease Management,Injury Prevention and Safety,"Maternal, Infant, and Child Health",Behavioral and Mental Health,Behavioral and Mental Health
+H077,Maywood,Cook,Behavioral and Mental Health,Access to Care and Healthcare Equity,Chronic Disease Management,Access to Care and Healthcare Equity,"Maternal, Infant, and Child Health"
+H078,Park Ridge,Cook,Chronic Disease Management,Behavioral and Mental Health,Behavioral and Mental Health,,
+H079,Lawrenceville,Du Page,Access to Care and Healthcare Equity,,,,
+H080,Dixon,Perry,Chronic Disease Management,Social Determinants of Health,Social Determinants of Health,,
+H081,Pontiac,Massac,Behavioral and Mental Health,Access to Care and Healthcare Equity,,,
+H082,Lincoln,Randolph,Access to Care and Healthcare Equity,Behavioral and Mental Health,"Maternal, Infant, and Child Health",Access to Care and Healthcare Equity,Access to Care and Healthcare Equity
+H083,Decatur,Hancock,Healthy Behaviors and Wellness,Behavioral and Mental Health,Access to Care and Healthcare Equity,,
+H084,Decatur,Jackson,Access to Care and Healthcare Equity,Behavioral and Mental Health,Chronic Disease Management,,
+H085,Carlinville,Sangamon,Chronic Disease Management,Behavioral and Mental Health,Behavioral and Mental Health,Social Determinants of Health,
+H086,Staunton,La Salle,Behavioral and Mental Health,Aging Population and Senior Health,,,
+H087,Alton,Mc Henry,Access to Care and Healthcare Equity,Behavioral and Mental Health,,,
+H088,Maryville,Mc Henry,Access to Care and Healthcare Equity,Behavioral and Mental Health,,,
+H089,Alton,Jo Daviess,Access to Care and Healthcare Equity,Behavioral and Mental Health,Aging Population and Senior Health,,
+H090,Highland,Lake,Chronic Disease Management,Chronic Disease Management,Infectious Disease Prevention and Control,Injury Prevention and Safety,Chronic Disease Management
+H091,Centralia,Grundy,Behavioral and Mental Health,Behavioral and Mental Health,Access to Care and Healthcare Equity,Healthy Behaviors and Wellness,Chronic Disease Management
+H092,Chicago,Cook,Chronic Disease Management,Behavioral and Mental Health,Social Determinants of Health,"Maternal, Infant, and Child Health",Infectious Disease Prevention and Control
+H093,Arlington Heights,Cook,Behavioral and Mental Health,Healthy Behaviors and Wellness,Chronic Disease Management,Chronic Disease Management,Access to Care and Healthcare Equity
+H094,Metropolis,Lake,Access to Care and Healthcare Equity,Behavioral and Mental Health,Chronic Disease Management,,
+H095,Crystal Lake,Mc Henry,Access to Care and Healthcare Equity,Behavioral and Mental Health,Social Determinants of Health,,
+H096,Harvard,Mc Henry,Access to Care and Healthcare Equity,Behavioral and Mental Health,Social Determinants of Health,,
+H097,Huntley,Mc Henry,Access to Care and Healthcare Equity,Behavioral and Mental Health,Social Determinants of Health,,
+H098,Woodstock,Mc Henry,Access to Care and Healthcare Equity,Behavioral and Mental Health,Social Determinants of Health,,
+H099,Chicago,Cook,Access to Care and Healthcare Equity,Behavioral and Mental Health,,,
+H100,McHenry,Vermilion,Behavioral and Mental Health,Social Determinants of Health,Access to Care and Healthcare Equity,,
+H101,McHenry,Bureau,Behavioral and Mental Health,Healthy Behaviors and Wellness,,,
+H102,Normal,Lee,Behavioral and Mental Health,Access to Care and Healthcare Equity,,,
+H103,Bloomington,Warren,Behavioral and Mental Health,Healthy Behaviors and Wellness,Access to Care and Healthcare Equity,,
+H104,Evergreen Park,Cook,Healthy Behaviors and Wellness,Access to Care and Healthcare Equity,,,
+H105,Aledo,Madison,Behavioral and Mental Health,Chronic Disease Management,,,
+H106,Hillsboro,Henry,Behavioral and Mental Health,Healthy Behaviors and Wellness,,,
+H107,Litchfield,La Salle,Behavioral and Mental Health,Aging Population and Senior Health,,,
+H108,Palos Heights,Cook,Access to Care and Healthcare Equity,Behavioral and Mental Health,Chronic Disease Management,,
+H109,Jacksonville,Christian,Behavioral and Mental Health,Chronic Disease Management,Behavioral and Mental Health,,
+H110,Peoria,Edgar,Chronic Disease Management,Behavioral and Mental Health,Healthy Behaviors and Wellness,,
+H111,Peoria,Morgan,Chronic Disease Management,Behavioral and Mental Health,Chronic Disease Management,Behavioral and Mental Health,
+H112,Peoria,Tazewell,Social Determinants of Health,Behavioral and Mental Health,Behavioral and Mental Health,,
+H113,Chicago,Cook,Access to Care and Healthcare Equity,Behavioral and Mental Health,Social Determinants of Health,Social Determinants of Health,
+H114,Peoria,Peoria,Social Determinants of Health,Behavioral and Mental Health,Behavioral and Mental Health,,
+H115,Du Quoin,St Clair,Behavioral and Mental Health,Healthy Behaviors and Wellness,Chronic Disease Management,Chronic Disease Management,Aging Population and Senior Health
+H116,Chicago,Cook,Behavioral and Mental Health,Chronic Disease Management,Behavioral and Mental Health,Chronic Disease Management,Social Determinants of Health
+H117,Chicago,Cook,Chronic Disease Management,Chronic Disease Management,Injury Prevention and Safety,Chronic Disease Management,"Maternal, Infant, and Child Health"
+H118,Chicago,Cook,Social Determinants of Health,Social Determinants of Health,Access to Care and Healthcare Equity,"Maternal, Infant, and Child Health",Behavioral and Mental Health
+H119,Monticello,Richland,Access to Care and Healthcare Equity,Social Determinants of Health,Social Determinants of Health,,
+H120,Pittsfield,Kankakee,Chronic Disease Management,Behavioral and Mental Health,Social Determinants of Health,,
+H121,Chicago,Cook,Access to Care and Healthcare Equity,Social Determinants of Health,Behavioral and Mental Health,Access to Care and Healthcare Equity,Access to Care and Healthcare Equity
+H122,Red Bud,Du Page,Access to Care and Healthcare Equity,Access to Care and Healthcare Equity,Social Determinants of Health,Behavioral and Mental Health,Access to Care and Healthcare Equity
+H123,Chicago,Cook,Access to Care and Healthcare Equity,Behavioral and Mental Health,Behavioral and Mental Health,Social Determinants of Health,Social Determinants of Health
+H124,Oak Park,Cook,Chronic Disease Management,Behavioral and Mental Health,Social Determinants of Health,Access to Care and Healthcare Equity,"Maternal, Infant, and Child Health"
+H125,Chicago,Cook,Chronic Disease Management,Behavioral and Mental Health,Social Determinants of Health,Access to Care and Healthcare Equity,"Maternal, Infant, and Child Health"
+H126,Chicago,Cook,Access to Care and Healthcare Equity,Chronic Disease Management,Behavioral and Mental Health,Injury Prevention and Safety,Behavioral and Mental Health
+H127,Chester,Winnebago,Behavioral and Mental Health,Chronic Disease Management,Healthy Behaviors and Wellness,,
+H128,Olney,Peoria,Chronic Disease Management,Access to Care and Healthcare Equity,Social Determinants of Health,Access to Care and Healthcare Equity,
+H129,Silvis,Livingston,Healthy Behaviors and Wellness,Behavioral and Mental Health,,,
+H130,Moline,Kane,Access to Care and Healthcare Equity,Behavioral and Mental Health,Social Determinants of Health,Social Determinants of Health,
+H131,Rock Island,Will,Access to Care and Healthcare Equity,Behavioral and Mental Health,Social Determinants of Health,,
+H132,Eldorado,Coles,Access to Care and Healthcare Equity,Healthy Behaviors and Wellness,Social Determinants of Health,,
+H133,Harrisburg,Fayette,Access to Care and Healthcare Equity,Aging Population and Senior Health,Behavioral and Mental Health,"Maternal, Infant, and Child Health",
+H134,Springfield,Schuyler,Chronic Disease Management,Chronic Disease Management,Healthy Behaviors and Wellness,Healthy Behaviors and Wellness,Healthy Behaviors and Wellness
+H135,Chicago,Cook,Chronic Disease Management,Behavioral and Mental Health,Social Determinants of Health,Infectious Disease Prevention and Control,
+H136,Chicago,Cook,Behavioral and Mental Health,Access to Care and Healthcare Equity,Healthy Behaviors and Wellness,,
+H137,Springfield,Will,Social Determinants of Health,Access to Care and Healthcare Equity,Chronic Disease Management,"Maternal, Infant, and Child Health",
+H138,Chicago,Cook,Behavioral and Mental Health,Behavioral and Mental Health,Chronic Disease Management,Access to Care and Healthcare Equity,Social Determinants of Health
+H139,Hoffman Estates,Cook,Social Determinants of Health,"Maternal, Infant, and Child Health",Aging Population and Senior Health,Access to Care and Healthcare Equity,Access to Care and Healthcare Equity
+H140,Rushville,Jackson,Access to Care and Healthcare Equity,Behavioral and Mental Health,Chronic Disease Management,,
+H141,Shelbyville,Madison,Behavioral and Mental Health,Chronic Disease Management,Behavioral and Mental Health,,
+H142,O'Fallon,Effingham,Behavioral and Mental Health,Chronic Disease Management,,,
+H143,Chicago,Cook,Aging Population and Senior Health,Chronic Disease Management,Chronic Disease Management,Behavioral and Mental Health,
+H144,Belleville,Montgomery,Access to Care and Healthcare Equity,Social Determinants of Health,Social Determinants of Health,,
+H145,Cahokia Heights,Sangamon,Behavioral and Mental Health,Social Determinants of Health,Access to Care and Healthcare Equity,,
+H146,Freeport,Mc Lean,Access to Care and Healthcare Equity,Behavioral and Mental Health,Social Determinants of Health,Social Determinants of Health,
+H147,Hopedale,Clinton,Behavioral and Mental Health,Chronic Disease Management,Behavioral and Mental Health,,
+H148,Pekin,Knox,Behavioral and Mental Health,Healthy Behaviors and Wellness,Access to Care and Healthcare Equity,,
+H149,Anna,Marion,Behavioral and Mental Health,Social Determinants of Health,,,
+H150,Hoopeston,Macon,Social Determinants of Health,Behavioral and Mental Health,Chronic Disease Management,,
+H151,Danville,Kankakee,Chronic Disease Management,Behavioral and Mental Health,Social Determinants of Health,,
+H152,Chicago,Cook,Behavioral and Mental Health,Healthy Behaviors and Wellness,Chronic Disease Management,Chronic Disease Management,Access to Care and Healthcare Equity
+H153,Mount Carmel,Winnebago,Chronic Disease Management,Social Determinants of Health,Behavioral and Mental Health,Social Determinants of Health,
+H154,Monmouth,Boone,Chronic Disease Management,Social Determinants of Health,Behavioral and Mental Health,Social Determinants of Health,
+H155,Nashville,Christian,Chronic Disease Management,Behavioral and Mental Health,Access to Care and Healthcare Equity,,
+H156,Fairfield,Logan,Chronic Disease Management,Behavioral and Mental Health,Healthy Behaviors and Wellness,,
+H157,Bolingbrook,Champaign,Healthy Behaviors and Wellness,Behavioral and Mental Health,Injury Prevention and Safety,Access to Care and Healthcare Equity,
+H158,Joliet,Peoria,Social Determinants of Health,Behavioral and Mental Health,Behavioral and Mental Health,,
+H159,Chicago,Cook,Chronic Disease Management,Behavioral and Mental Health,Social Determinants of Health,,
+H160,New Lenox,Greene,Social Determinants of Health,Social Determinants of Health,Social Determinants of Health,Behavioral and Mental Health,Access to Care and Healthcare Equity
+H161,Chicago,Cook,Behavioral and Mental Health,Behavioral and Mental Health,Injury Prevention and Safety,Healthy Behaviors and Wellness,Healthy Behaviors and Wellness
+H162,Chicago,Cook,Behavioral and Mental Health,Behavioral and Mental Health,Injury Prevention and Safety,Healthy Behaviors and Wellness,Healthy Behaviors and Wellness
+H163,Marion,St Clair,Behavioral and Mental Health,Chronic Disease Management,Access to Care and Healthcare Equity,Social Determinants of Health,
+H164,Herrin,Rock Island,Behavioral and Mental Health,Access to Care and Healthcare Equity,Healthy Behaviors and Wellness,Chronic Disease Management,Chronic Disease Management
+H165,Rockford,Rock Island,Behavioral and Mental Health,Access to Care and Healthcare Equity,Healthy Behaviors and Wellness,Chronic Disease Management,Chronic Disease Management
+H166,Chicago,Cook,Access to Care and Healthcare Equity,Behavioral and Mental Health,Social Determinants of Health,Injury Prevention and Safety,Aging Population and Senior Health
+H167,Rockford,De Kalb,Access to Care and Healthcare Equity,Behavioral and Mental Health,Chronic Disease Management,,
+H168,Rockford,Wabash,Behavioral and Mental Health,Behavioral and Mental Health,Access to Care and Healthcare Equity,,
+H169,Eureka,Washington,Chronic Disease Management,Chronic Disease Management,Behavioral and Mental Health,Aging Population and Senior Health,

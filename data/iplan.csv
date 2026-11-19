@@ -1,0 +1,239 @@
+County,Priority 1,Priority 2,Priority 3,Priority 4,Priority 5,Number of Hospitals with CHNAS,Population,Age 0-17,Age 18-39,Age 40-64,Age 65 and over,White,Black or African American,Hispanic,American Indian or Alaska Native,"Asian, Native Hawaiian, or Pacific Islander",Forgein Born,Rurality,County Poverty per Persons,Poverty Rate,Median Household Income,Uninsured Population
+Will,Social Determinants of Health,"Maternal, Infant, and Child Health",Behavioral and Mental Health,"
+","
+",3,701462,165564,193823,239808,102267,437226,83066,138703,3817,44906,94956,1,50799,0.072418748,109984,33464
+Du Page,Access to Care and Healthcare Equity,"Maternal, Infant, and Child Health",Behavioral and Mental Health,"
+","
+",8,930024,206075,256716,305993,161240,602548,46090,149533,4229,121407,190983,1,60189,0.064717685,112096,41812
+Cook,Chronic Disease Management,"Maternal, Infant, and Child Health",Behavioral and Mental Health,"
+","
+",20,5182090,1092202,1648742,1613990,827156,2257930,1148066,1387163,47333,414167,1127068,1,687508,0.132670023,83498,384908
+Lake,Access to Care and Healthcare Equity,Social Determinants of Health,Social Determinants of Health,"
+","
+",5,714223,166306,199249,235876,112792,437310,47642,177631,6816,62594,141715,1,57917,0.08109092,110416,38323
+Kane,Access to Care and Healthcare Equity,Behavioral and Mental Health,Social Determinants of Health,Social Determinants of Health,"
+",4,517255,123564,142794,170506,80391,300197,25661,172723,5972,21917,89039,1,40407,0.078118143,103163,34109
+Madison,Behavioral and Mental Health,Access to Care and Healthcare Equity,Healthy Behaviors and Wellness,"
+","
+",4,264238,56348,75095,83861,48934,219413,20666,11399,500,2312,5835,1,28605,0.108254679,75793,11021
+Pike,Behavioral and Mental Health,Social Determinants of Health,Access to Care and Healthcare Equity,"
+","
+",1,14469,3353,3471,4493,3152,13808,87,298,1,95,124,9,2083,0.143962955,59777,688
+Adams,Social Determinants of Health,Social Determinants of Health,Access to Care and Healthcare Equity,"
+","
+",1,64754,14578,16447,20412,13317,58671,1839,1350,79,444,791,5,8084,0.124841709,66220,2541
+Mc Lean,Access to Care and Healthcare Equity,Behavioral and Mental Health,Healthy Behaviors and Wellness,"
+","
+",2,171556,36391,61631,48530,25004,133787,14627,11062,541,9078,13043,3,20899,0.12182028,79905,7005
+Woodford,Behavioral and Mental Health,Social Determinants of Health,Behavioral and Mental Health,"
+","
+",1,38312,9161,9775,11960,7416,36040,232,798,65,229,581,2,2614,0.068229275,91483,1354
+Macoupin,Behavioral and Mental Health,Behavioral and Mental Health,Injury Prevention and Safety,"
+","
+",2,44350,9136,10687,14961,9566,41656,654,608,50,136,400,1,5626,0.126854566,70805,1918
+Crawford,Behavioral and Mental Health,Healthy Behaviors and Wellness,Chronic Disease Management,"
+","
+",1,18511,3746,4818,6288,3659,16763,636,491,237,45,219,6,2073,0.111987467,71674,793
+Jefferson,Behavioral and Mental Health,Behavioral and Mental Health,Healthy Behaviors and Wellness,"
+","
+",2,36550,8140,9627,11485,7298,30687,2272,1030,122,376,680,7,4726,0.129302326,63118,1510
+Randolph,"
+","
+","
+","
+","
+",6,30058,6063,7466,10136,6393,25786,2497,1147,191,191,736,"
+",3972,0.132144521,68131,1249
+Union,Chronic Disease Management,Chronic Disease Management,Behavioral and Mental Health,"
+","
+",1,16997,3617,4001,5480,3899,15210,161,932,23,123,502,6,3351,0.197152439,55728,883
+Williamson,Behavioral and Mental Health,Healthy Behaviors and Wellness,Chronic Disease Management,"
+","
+",2,66876,14227,17777,21736,13136,59489,2988,1947,186,1000,1327,5,8880,0.132783061,65604,2710
+Macon,Behavioral and Mental Health,Behavioral and Mental Health,Infectious Disease Prevention and Control,"
+","
+",2,101849,23066,27142,30229,21412,75616,16552,2915,99,1607,2799,3,14834,0.145646987,62666,3761
+Wayne,Chronic Disease Management,Chronic Disease Management,Behavioral and Mental Health,"
+","
+",1,15973,3592,3702,5169,3510,15199,64,330,44,97,358,9,2556,0.160020034,55521,928
+Saline,Behavioral and Mental Health,Behavioral and Mental Health,Healthy Behaviors and Wellness,"
+","
+",2,23213,4799,6043,7375,4996,21292,719,502,24,127,212,7,4285,0.184594839,53117,1065
+Stephenson,Social Determinants of Health,Access to Care and Healthcare Equity,Behavioral and Mental Health,"
+","
+",1,43768,9296,10075,13726,10671,34830,3779,2457,170,364,1125,4,5991,0.136880826,64043,1808
+Rock Island,Access to Care and Healthcare Equity,Chronic Disease Management,Behavioral and Mental Health,"
+","
+",3,142757,32091,38797,42808,29061,102074,16270,20305,555,4174,12394,2,21292,0.149148553,67159,7193
+Mercer,Healthy Behaviors and Wellness,Access to Care and Healthcare Equity,Behavioral and Mental Health,"
+","
+",1,15495,3230,3599,5277,3389,14589,93,534,14,56,166,2,1366,0.08815747,74182,653
+Ford,Behavioral and Mental Health,Chronic Disease Management,"Maternal, Infant, and Child Health",Behavioral and Mental Health,"
+",1,13406,3130,3358,4290,2628,12111,71,707,4,55,355,3,1594,0.118901984,62439,655
+Fulton,Social Determinants of Health,Access to Care and Healthcare Equity,Behavioral and Mental Health,"
+","
+",1,33020,6451,8405,11075,7089,30518,966,830,126,100,391,6,4063,0.123046638,60599,1406
+Peoria,Social Determinants of Health,Access to Care and Healthcare Equity,Behavioral and Mental Health,"
+","
+",4,179645,42971,51055,52806,32813,120891,31145,10799,509,8414,12815,2,27344,0.152211306,65108,7787
+Hamilton,Healthy Behaviors and Wellness,Chronic Disease Management,Behavioral and Mental Health,Behavioral and Mental Health,"
+",1,7916,1731,1831,2538,1816,7541,17,57,13,51,39,9,948,0.119757453,65746,335
+Henry,Access to Care and Healthcare Equity,Social Determinants of Health,Behavioral and Mental Health,Behavioral and Mental Health,"
+",2,48643,10516,11628,15908,10591,42780,535,3366,5,257,837,2,4264,0.087659067,71911,2025
+Hardin,Chronic Disease Management,Behavioral and Mental Health,Behavioral and Mental Health,Healthy Behaviors and Wellness,Social Determinants of Health,1,3605,533,819,1177,1076,3477,49,33,0,0,10,9,385,0.106796117,54271,129
+Montgomery,Behavioral and Mental Health,Chronic Disease Management,Behavioral and Mental Health,"
+","
+",2,27942,5621,7322,8992,6007,25911,926,609,31,114,218,6,3229,0.115560805,63620,1165
+Vermilion,Behavioral and Mental Health,Injury Prevention and Safety,Social Determinants of Health,"
+","
+",2,72386,16954,17907,22827,14698,56446,10699,4038,94,645,1300,4,12217,0.16877573,56877,2935
+Tazewell,Social Determinants of Health,Access to Care and Healthcare Equity,Behavioral and Mental Health,"
+","
+",2,130290,28584,33190,42634,25882,121337,2101,3503,171,1316,2101,2,11453,0.087903907,77982,4782
+Shelby,"
+","
+","
+","
+","
+",8,20720,4412,4855,6548,4905,20005,45,254,65,38,217,"
+",1874,0.090444015,72095,742
+Bond,Chronic Disease Management,Chronic Disease Management,Injury Prevention and Safety,"
+","
+",1,16716,2963,5479,5137,3137,14488,1023,336,196,110,178,1,1591,0.095178272,65959,683
+St Clair,Chronic Disease Management,"Maternal, Infant, and Child Health",Behavioral and Mental Health,"
+","
+",3,253694,58413,68842,82432,44007,152523,70726,12858,642,4232,8330,1,33710,0.132876615,73854,10833
+Iroquois,Behavioral and Mental Health,Behavioral and Mental Health,Healthy Behaviors and Wellness,"
+","
+",1,26449,5703,6094,8675,5977,23481,213,2187,137,89,919,8,3242,0.122575523,66255,1407
+Winnebago,"Maternal, Infant, and Child Health",Behavioral and Mental Health,Injury Prevention and Safety,"
+","
+",3,283292,66531,76501,87742,52518,188087,34098,44014,1849,8398,25134,2,43596,0.153890685,65837,16717
+Jersey,Chronic Disease Management,Behavioral and Mental Health,Behavioral and Mental Health,"
+","
+",1,21274,4207,5637,7039,4391,20197,118,340,5,165,220,1,1782,0.083764219,80361,748
+Piatt,Behavioral and Mental Health,Healthy Behaviors and Wellness,Access to Care and Healthcare Equity,"
+","
+",1,16695,3608,4201,5357,3529,15860,240,271,14,106,291,3,1018,0.06097634,94811,500
+De Kalb,Behavioral and Mental Health,Access to Care and Healthcare Equity,Behavioral and Mental Health,"
+","
+",2,100703,21723,38032,26928,14020,74678,7056,14647,658,2359,6483,1,14186,0.140869686,70724,5549
+Lawrence,"
+","
+","
+","
+","
+",9,15031,2796,4463,4993,2779,12621,932,323,7,69,223,"
+",1959,0.13033065,55324,685
+Perry,Chronic Disease Management,Behavioral and Mental Health,Chronic Disease Management,"
+","
+",1,20639,3979,5755,6720,4185,17644,1573,760,10,74,250,7,3064,0.148456805,62118,819
+Massac,Chronic Disease Management,Chronic Disease Management,Behavioral and Mental Health,"
+","
+",1,13865,2955,3115,4746,3049,11970,934,397,17,39,189,3,2196,0.158384421,65116,666
+Hancock,Healthy Behaviors and Wellness,Behavioral and Mental Health,Chronic Disease Management,"
+","
+",1,17281,3635,3862,5528,4256,16283,128,397,23,77,251,9,2085,0.12065274,65865,682
+Jackson,Behavioral and Mental Health,Social Determinants of Health,Chronic Disease Management,"
+","
+",2,53064,9994,21180,13112,8778,38642,7422,2811,45,1993,3012,5,10305,0.194199457,48763,2964
+Sangamon,Social Determinants of Health,Access to Care and Healthcare Equity,Social Determinants of Health,Social Determinants of Health,Injury Prevention and Safety,2,194947,42640,51846,62612,37849,152344,24767,5721,135,4508,6961,3,25082,0.12866061,75357,7216
+La Salle,Healthy Behaviors and Wellness,Behavioral and Mental Health,Aging Population and Senior Health,Social Determinants of Health,"
+",2,108714,23020,28397,35628,21669,92952,2796,12161,210,921,4217,4,14674,0.134978016,73045,4664
+Mc Henry,Access to Care and Healthcare Equity,Behavioral and Mental Health,Chronic Disease Management,Healthy Behaviors and Wellness,"
+",6,312591,71089,82550,107440,51512,248630,4755,50243,1185,9807,31059,1,19335,0.061853988,104802,14396
+Jo Daviess,Healthy Behaviors and Wellness,Access to Care and Healthcare Equity,Behavioral and Mental Health,"
+","
+",1,21851,3972,4535,6803,6541,20434,166,912,63,129,418,8,1695,0.077570821,73993,839
+Grundy,Behavioral and Mental Health,"Maternal, Infant, and Child Health",Healthy Behaviors and Wellness,"
+","
+",1,53219,12939,15097,17152,8031,45933,1220,6368,38,301,2180,1,3154,0.059264548,92235,1819
+Bureau,"
+","
+","
+","
+","
+",7,32866,6799,8020,10433,7614,28743,193,3357,11,287,1113,"
+",3479,0.105854074,69257,1578
+Lee,Behavioral and Mental Health,Chronic Disease Management,"
+","
+","
+",1,33869,6655,8917,11070,7227,29059,1798,2564,37,255,758,6,3711,0.109569223,70292,1345
+Warren,"
+","
+","
+","
+","
+","
+",16447,3693,4732,4736,3286,13624,438,1820,157,465,1061,"
+",2238,0.136073448,67385,887
+Christian,Social Determinants of Health,Behavioral and Mental Health,Infectious Disease Prevention and Control,Chronic Disease Management,Behavioral and Mental Health,2,33538,6482,9007,11252,6797,30883,734,1112,21,260,397,6,3237,0.096517383,62611,1314
+Edgar,"
+","
+","
+","
+","
+",6,16535,3275,3588,5592,4080,15863,108,252,13,52,171,"
+",1936,0.117084971,59941,719
+Morgan,"
+","
+","
+","
+","
+",4,33021,6252,9664,10208,6897,28951,1619,967,45,295,359,"
+",4141,0.125405045,66306,1355
+Richland,"
+","
+","
+","
+","
+",7,15598,3584,3692,5088,3234,14630,68,309,9,87,218,"
+",1851,0.11866906,62455,713
+Kankakee,Behavioral and Mental Health,Healthy Behaviors and Wellness,Social Determinants of Health,"
+","
+",2,106635,24272,30039,33294,19030,78270,15265,13523,487,1067,6116,3,12498,0.117203545,71281,5033
+Livingston,Healthy Behaviors and Wellness,Behavioral and Mental Health,"Maternal, Infant, and Child Health","
+","
+",1,35565,7802,9096,11503,7164,31676,1209,2070,37,301,862,6,3529,0.099226768,73790,1492
+Coles,Healthy Behaviors and Wellness,Infectious Disease Prevention and Control,Healthy Behaviors and Wellness,"
+","
+",1,46777,8549,16028,13608,8592,41961,1670,1809,20,627,1298,5,8056,0.172221391,56478,2353
+Fayette,Behavioral and Mental Health,Behavioral and Mental Health,Chronic Disease Management,"
+","
+",1,21315,4355,5817,6979,4164,18936,692,650,71,45,189,6,3117,0.146235046,60944,1105
+Schuyler,"
+","
+","
+","
+","
+",9,6787,1153,1393,2497,1744,6222,254,182,0,44,88,"
+",1381,0.203477236,65948,354
+Effingham,Access to Care and Healthcare Equity,Chronic Disease Management,Behavioral and Mental Health,"
+","
+",1,34522,8265,9012,10744,6501,33062,101,955,25,297,563,7,3444,0.09976247,80404,1367
+Clinton,Healthy Behaviors and Wellness,Access to Care and Healthcare Equity,Behavioral and Mental Health,"
+","
+",1,36954,7980,9783,12236,6955,33584,1164,1512,77,231,868,1,2570,0.069545922,86588,1419
+Knox,Access to Care and Healthcare Equity,Behavioral and Mental Health,Healthy Behaviors and Wellness,"
+","
+",1,49046,9907,12927,15305,10907,40178,3962,3161,29,624,1562,4,6599,0.13454716,57030,1940
+Marion,Behavioral and Mental Health,Social Determinants of Health,Social Determinants of Health,"
+","
+",1,37000,8685,9064,11778,7473,33280,1097,812,38,271,551,7,5542,0.149783784,61240,1665
+Boone,Behavioral and Mental Health,Healthy Behaviors and Wellness,Chronic Disease Management,Chronic Disease Management,"
+",1,53230,12650,14119,17545,8916,38201,1623,13651,194,511,6004,2,5224,0.098140147,84571,3126
+Logan,Healthy Behaviors and Wellness,Behavioral and Mental Health,Chronic Disease Management,Social Determinants of Health,"
+",1,27713,5338,8102,8864,5409,24136,1492,966,18,134,405,6,3203,0.115577527,66358,934
+Champaign,Chronic Disease Management,Behavioral and Mental Health,"Maternal, Infant, and Child Health",Social Determinants of Health,"
+",1,208741,39863,88080,51814,28984,134024,28079,17249,381,23941,29647,3,36921,0.176874692,63683,9771
+Greene,Behavioral and Mental Health,Access to Care and Healthcare Equity,Social Determinants of Health,Substance Abuse,"
+",1,11683,2575,2749,3925,2434,11198,88,128,16,61,25,8,1628,0.13934777,62192,551
+Wabash,Behavioral and Mental Health,Behavioral and Mental Health,Chronic Disease Management,Healthy Behaviors and Wellness,"
+",1,11119,2331,2785,3494,2509,10416,69,239,6,181,247,7,1812,0.162964295,57086,434
+Washington,"
+","
+","
+","
+","
+",8,13627,2836,3408,4435,2948,12968,202,217,20,32,88,"
+",1008,0.073970793,78224,479

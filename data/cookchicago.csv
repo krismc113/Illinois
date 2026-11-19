@@ -1,0 +1,50 @@
+Hospital ID,Location,City,County,Priority 1,Priority 2,Priority 3,Priority 4,Priority 5
+H008,Northwest,Chicago,Cook,Behavioral and Mental Health,Access to Care and Healthcare Equity,Chronic Disease Management,,
+H011,South,Chicago,Cook,Behavioral and Mental Health,Healthy Behaviors and Wellness,,,
+H016,North,Chicago,Cook,Social Determinants of Health,Chronic Disease Management,Behavioral and Mental Health,Social Determinants of Health,
+H057,Southwest,Chicago,Cook,Access to Care and Healthcare Equity,Behavioral and Mental Health,Social Determinants of Health,"Maternal, Infant, and Child Health",Infectious Disease Prevention and Control
+H064,West,Chicago,Cook,Social Determinants of Health,Chronic Disease Management,Chronic Disease Management,Behavioral and Mental Health,Access to Care and Healthcare Equity
+H066,South,Chicago,Cook,Behavioral and Mental Health,"Maternal, Infant, and Child Health",Chronic Disease Management,Access to Care and Healthcare Equity,Social Determinants of Health
+H068,South,Chicago,Cook,Behavioral and Mental Health,Aging Population and Senior Health,Behavioral and Mental Health,Chronic Disease Management,Chronic Disease Management
+H071,West,Chicago,Cook,Behavioral and Mental Health,Chronic Disease Management,Behavioral and Mental Health,Social Determinants of Health,Social Determinants of Health
+H074,South,Chicago,Cook,Behavioral and Mental Health,Behavioral and Mental Health,Behavioral and Mental Health,Chronic Disease Management,Chronic Disease Management
+H076,West,Chicago,Cook,Chronic Disease Management,Injury Prevention and Safety,"Maternal, Infant, and Child Health",Behavioral and Mental Health,Behavioral and Mental Health
+H092,West,Chicago,Cook,Chronic Disease Management,Behavioral and Mental Health,Social Determinants of Health,"Maternal, Infant, and Child Health",Infectious Disease Prevention and Control
+H099,North,Chicago,Cook,Access to Care and Healthcare Equity,Behavioral and Mental Health,,,
+H113,North,Chicago,Cook,Access to Care and Healthcare Equity,Behavioral and Mental Health,Social Determinants of Health,Social Determinants of Health,
+H116,South,Chicago,Cook,Behavioral and Mental Health,Chronic Disease Management,Behavioral and Mental Health,Chronic Disease Management,Social Determinants of Health
+H117,North,Chicago,Cook,Chronic Disease Management,Chronic Disease Management,Injury Prevention and Safety,Chronic Disease Management,"Maternal, Infant, and Child Health"
+H118,Northwest,Chicago,Cook,Social Determinants of Health,Social Determinants of Health,Access to Care and Healthcare Equity,"Maternal, Infant, and Child Health",Behavioral and Mental Health
+H121,West,Chicago,Cook,Access to Care and Healthcare Equity,Social Determinants of Health,Behavioral and Mental Health,Access to Care and Healthcare Equity,Access to Care and Healthcare Equity
+H123,South,Chicago,Cook,Access to Care and Healthcare Equity,Behavioral and Mental Health,Behavioral and Mental Health,Social Determinants of Health,Social Determinants of Health
+H125,West,Chicago,Cook,Chronic Disease Management,Behavioral and Mental Health,Social Determinants of Health,Access to Care and Healthcare Equity,"Maternal, Infant, and Child Health"
+H126,Southwest,Chicago,Cook,Access to Care and Healthcare Equity,Chronic Disease Management,Behavioral and Mental Health,Injury Prevention and Safety,Behavioral and Mental Health
+H135,South,Chicago,Cook,Chronic Disease Management,Behavioral and Mental Health,Social Determinants of Health,Infectious Disease Prevention and Control,
+H136,North,Chicago,Cook,Behavioral and Mental Health,Access to Care and Healthcare Equity,Healthy Behaviors and Wellness,,
+H138,South,Chicago,Cook,Behavioral and Mental Health,Behavioral and Mental Health,Chronic Disease Management,Access to Care and Healthcare Equity,Social Determinants of Health
+H143,South,Chicago,Cook,Aging Population and Senior Health,Chronic Disease Management,Chronic Disease Management,Behavioral and Mental Health,
+H152,North,Chicago,Cook,Behavioral and Mental Health,Healthy Behaviors and Wellness,Chronic Disease Management,Chronic Disease Management,Access to Care and Healthcare Equity
+H159,South,Chicago,Cook,Chronic Disease Management,Behavioral and Mental Health,Social Determinants of Health,,
+H161,North,Chicago,Cook,Behavioral and Mental Health,Behavioral and Mental Health,Injury Prevention and Safety,Healthy Behaviors and Wellness,Healthy Behaviors and Wellness
+H162,North,Chicago,Cook,Behavioral and Mental Health,Behavioral and Mental Health,Injury Prevention and Safety,Healthy Behaviors and Wellness,Healthy Behaviors and Wellness
+H166,West,Chicago,Cook,Access to Care and Healthcare Equity,Behavioral and Mental Health,Social Determinants of Health,Injury Prevention and Safety,Aging Population and Senior Health
+H004,West,La Grange,Cook,Access to Care and Healthcare Equity,Behavioral and Mental Health,Chronic Disease Management,,
+H006,Southwest,Oak Lawn,Cook,Social Determinants of Health,Behavioral and Mental Health,Chronic Disease Management,,
+H010,South,Hazel Crest,Cook,Behavioral and Mental Health,Chronic Disease Management,,,
+H012,Northwest,Hoffman Estates,Cook,Access to Care and Healthcare Equity,Behavioral and Mental Health,Social Determinants of Health,,
+H013,Southwest,Elk Grove Village,Cook,Chronic Disease Management,Behavioral and Mental Health,Access to Care and Healthcare Equity,Social Determinants of Health,
+H034,South,Evanston,Cook,Behavioral and Mental Health,Healthy Behaviors and Wellness,Chronic Disease Management,Chronic Disease Management,Access to Care and Healthcare Equity
+H035,Northwest,Glenview,Cook,Behavioral and Mental Health,Healthy Behaviors and Wellness,Chronic Disease Management,Chronic Disease Management,Access to Care and Healthcare Equity
+H037,North,Skokie,Cook,Behavioral and Mental Health,Healthy Behaviors and Wellness,Chronic Disease Management,Chronic Disease Management,Access to Care and Healthcare Equity
+H041,South,Olympia Fields,Cook,Behavioral and Mental Health,Chronic Disease Management,Chronic Disease Management,,
+H047,West,Berwyn,Cook,Behavioral and Mental Health,Access to Care and Healthcare Equity,Chronic Disease Management,Access to Care and Healthcare Equity,"Maternal, Infant, and Child Health"
+H048,West,Melrose Park,Cook,Behavioral and Mental Health,Access to Care and Healthcare Equity,Chronic Disease Management,Access to Care and Healthcare Equity,"Maternal, Infant, and Child Health"
+H058,Northwest,Des Plaines,Cook,Behavioral and Mental Health,Chronic Disease Management,"Maternal, Infant, and Child Health",Injury Prevention and Safety,
+H065,South,Harvey,Cook,Chronic Disease Management,Access to Care and Healthcare Equity,Social Determinants of Health,,
+H077,West,Maywood,Cook,Behavioral and Mental Health,Access to Care and Healthcare Equity,Chronic Disease Management,Access to Care and Healthcare Equity,"Maternal, Infant, and Child Health"
+H078,Northwest,Park Ridge,Cook,Chronic Disease Management,Behavioral and Mental Health,Behavioral and Mental Health,,
+H093,Northwest,Arlington Heights,Cook,Behavioral and Mental Health,Healthy Behaviors and Wellness,Chronic Disease Management,Chronic Disease Management,Access to Care and Healthcare Equity
+H104,Southwest,Evergreen Park,Cook,Healthy Behaviors and Wellness,Access to Care and Healthcare Equity,,,
+H108,Southwest,Palos Heights,Cook,Access to Care and Healthcare Equity,Behavioral and Mental Health,Chronic Disease Management,,
+H124,West,Oak Park,Cook,Chronic Disease Management,Behavioral and Mental Health,Social Determinants of Health,Access to Care and Healthcare Equity,"Maternal, Infant, and Child Health"
+H139,Northwest,Hoffman Estates,Cook,Social Determinants of Health,"Maternal, Infant, and Child Health",Aging Population and Senior Health,Access to Care and Healthcare Equity,Access to Care and Healthcare Equity

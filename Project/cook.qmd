@@ -1,0 +1,215 @@
+---
+title: "cook"
+format: html
+editor: visual
+---
+
+## Packages
+
+```{r}
+
+library(tidyverse)
+library(patchwork)
+library(grid)
+library(dplyr)
+library(tidyr)
+library(stringr)
+library(ggplot2)
+library(broom)
+library(betareg)
+library(maps)
+library(sf)
+
+```
+
+## Import Cook Data
+
+```{r, cook-data}
+
+# Import datasets
+cook_chicago <- readr::read_csv("data/cookchicago.csv")
+
+# Clean column names
+names(data) <- str_trim(names(data))
+names(cook_chicago) <- str_trim(names(cook_chicago))
+names(data1) <- str_trim(names(data1))
+
+# Identify suburban Cook hospitals
+cook_chna <- cook_chicago %>%
+  filter(City != "Chicago") %>%
+  mutate(Geographic_Group = "Suburban Cook")
+
+# Extract Cook County IPLAN
+cook_iplan <- data1 %>%
+  filter(County == "Cook") %>%
+  mutate(Geographic_Group = "Suburban Cook")
+
+# Check counts
+nrow(cook_chna)
+nrow(cook_iplan)
+
+```
+## Cook Priorities
+
+
+## CHNA Priorities
+
+```{r, cook-chna-priorities}
+
+cook_priority_long <- cook_chna %>%
+  pivot_longer(
+    cols = starts_with("Priority"),
+    names_to = "Priority",
+    values_to = "Topic"
+  ) %>%
+  mutate(
+    Topic = str_trim(Topic)
+  ) %>%
+  filter(!is.na(Topic), Topic != "")
+
+```
+
+## IPLAN Priorities
+
+```{r, cook-iplan-priorities}
+
+cook_iplan_long <- cook_iplan %>%
+  pivot_longer(
+    cols = starts_with("Priority"),
+    names_to = "Priority",
+    values_to = "Topic"
+  ) %>%
+  mutate(
+    Topic = str_trim(Topic)
+  ) %>%
+  filter(!is.na(Topic), Topic != "")
+
+```
+
+## Unique Hospitals
+
+```{r, cook-hospital-priority}
+
+cook_hospital_priority <- cook_priority_long %>%
+  filter(!is.na(`Hospital ID`)) %>%
+  distinct(`Hospital ID`, Priority, Topic) %>%
+  count(Priority, Topic, name = "Hospitals")
+
+```
+
+
+## Unique IPLAN Priorities
+
+```{r, cook-iplan-summary}
+
+cook_iplan_priority <- cook_iplan_long %>%
+  distinct(Priority, Topic) %>%
+  count(Priority, Topic, name = "Health_Departments")
+
+cook_iplan_priority
+
+```
+
+
+## Cook CHNA Priority Plot
+
+```{r, cook-priority-plot}
+
+make_cook_plot <- function(priority_number) {
+
+  plot_data <- cook_hospital_priority %>%
+    filter(Priority == paste0("Priority ", priority_number)) %>%
+    arrange(Hospitals)
+
+  ggplot(
+    plot_data,
+    aes(
+      x = Hospitals,
+      y = reorder(Topic, Hospitals),
+      fill = Topic
+    )
+  ) +
+    geom_col(width = 0.7) +
+
+    geom_text(
+      aes(label = Hospitals),
+      hjust = -0.2,
+      size = 2
+    ) +
+
+    scale_fill_manual(values = topic_colors) +
+
+    scale_x_continuous(
+      breaks = seq(0, 20, by = 5),
+      expand = expansion(mult = c(0, 0.12))
+    ) +
+
+    labs(
+      title = paste("Priority", priority_number),
+      x = NULL,
+      y = NULL
+    ) +
+
+    theme_minimal() +
+
+    theme(
+      plot.title = element_text(size = 9, face = "bold"),
+      axis.text.y = element_text(size = 5),
+      axis.text.x = element_text(size = 9),
+      legend.position = "none",
+      panel.grid.major.y = element_blank()
+    )
+}
+
+```
+
+
+## Final Cook CHNA Column Plot
+
+```{r, final-cook-plot}
+
+p1 <- make_cook_plot(1)
+p2 <- make_cook_plot(2)
+p3 <- make_cook_plot(3)
+p4 <- make_cook_plot(4)
+p5 <- make_cook_plot(5)
+
+p1 <- p1 +
+  labs(y = "Health Topic") +
+  theme(
+    axis.title.y = element_text(
+      size = 12,
+      margin = margin(r = 10)
+    )
+  )
+
+cook_final_plot <- (p1 | p2) /
+  (p3 | p4) /
+  (p5 | plot_spacer()) +
+  plot_layout(guides = "collect") +
+  plot_annotation(
+    title = "Distribution of CHNA Health Priorities Across Suburban Cook Hospitals",
+    caption = "Number of Hospitals Identifying Each Topic",
+    theme = theme(
+      plot.title = element_text(size = 15, face = "bold"),
+      plot.caption = element_text(size = 12, hjust = 0.5)
+    )
+  )
+
+cook_final_plot
+
+```
+
+## Save
+
+```{r, save}
+
+ggsave(
+  filename = "graph/cook.png",
+  plot = cook_final_plot,
+  width = 12,
+  height = 8,
+  dpi = 300
+)
+
+```

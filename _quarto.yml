@@ -1,0 +1,32 @@
+
+project:
+  type: website
+  render:
+    - index.qmd
+    - graph.qmd
+    - gismap.qmd
+    - method.qmd
+  resources:
+    - "*.pdf"
+    - "*.html"
+
+website:
+  title: "Illinois Hospital CHNA and County IPLAN Comparison"
+  navbar:
+    left:
+      - text: Home
+        href: index.qmd
+      - text: Visualizations
+        href: graph.qmd
+      - text: GIS Map
+        href: gismap.qmd
+      - text: Methodology
+        href: method.qmd
+
+format:
+  html:
+    theme: 
+    - cosmo
+    - styles.scss
+    toc: false
+    page-layout: article

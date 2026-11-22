@@ -1,0 +1,54 @@
+---
+title: "Methodology"
+editor: visual
+format:
+  html:
+    theme: cosmo
+    toc: false
+    page-layout: full
+---
+
+
+## Data Sources
+
+This analysis integrates hospital Community Health Needs Assessments (CHNAs), local health department Illinois Project for Local Assessment of Needs (IPLAN) assessments, and county-level demographic and socioeconomic data.
+
+Hospital CHNA reports and local health department IPLAN assessments were used to identify and compare community health priorities across Illinois. Demographic and socioeconomic indicators, including population, age distribution, racial and ethnic composition, poverty, median household income, and health insurance coverage, were obtained from the U.S. Census Bureau American Community Survey (ACS) 5-Year Estimates.
+
+County rurality classifications were obtained from the USDA Economic Research Service (ERS) Rural-Urban Continuum Codes (RUCC). These data were incorporated to examine geographic differences across Illinois.
+
+## Data Preparation
+
+Hospital CHNA and local health department IPLAN datasets were organized separately and standardized into consistent health topic categories to facilitate comparisons across assessment sources.
+
+Geographic classifications were established to distinguish five mutually exclusive groups: Chicago, Suburban Cook, Suburban Non-Cook, Urban Non-Cook, and Rural. Chicago was analyzed separately from the remainder of Cook County to distinguish municipal and suburban health priorities.
+
+Demographic and socioeconomic indicators were integrated into the county-level dataset using geographic identifiers. Population, poverty, income, insurance coverage, age, and racial and ethnic composition variables were prepared for descriptive and comparative analyses.
+
+Counties were also stratified into higher- and lower-poverty groups and higher- and lower-uninsured groups to examine differences in first-ranked IPLAN priorities across socioeconomic conditions.
+
+## Analytical Methods
+
+**Descriptive Statistics:** Means, standard deviations, medians, minimums, and maximums were calculated to summarize county-level demographic, socioeconomic, and healthcare access characteristics. Sample sizes and missing observations were also examined.
+
+**Priority Comparisons:** Hospital CHNA and local health department IPLAN priorities were summarized by health topic and geographic group. Frequency distributions were used to identify commonly reported priorities and differences between assessment sources.
+
+**Priority Alignment and Overlap:** Shared CHNA and IPLAN priorities were compared across geographic groups. Overlap was calculated as the number of shared health priorities divided by the total number of unique priorities identified by both assessment sources, multiplied by 100.
+
+**First-Ranked Priority Analysis:** The highest-ranked CHNA and IPLAN priorities were examined separately across the five geographic groups. Frequencies were calculated to identify differences in the primary health needs emphasized by hospitals and local health departments.
+
+**Geographic Distribution of Priorities:** The geographic distribution of hospital CHNA and county IPLAN priorities was examined across standardized health topic categories. Percentages were calculated to identify the contribution of each geographic group to the total assessments identifying a particular priority.
+
+**Priority Prevalence:** The prevalence of three selected health priorities was examined across geographic groups. For hospital CHNAs, Behavioral and Mental Health, Access to Care and Healthcare Equity, and Chronic Disease Management were compared. For IPLAN assessments, Behavioral and Mental Health, Chronic Disease Management, and Healthy Behaviors and Wellness were examined. Percentages were calculated using the number of assessments within each geographic group.
+
+**Cook County and Chicago Comparison:** Hospital CHNA priorities were compared with the corresponding local health department IPLAN priorities in Chicago and Suburban Cook. The Chicago Department of Public Health and Cook County Department of Public Health assessments were examined separately to identify similarities and differences in institutional priorities.
+
+**Ordered IPLAN Priority Comparison:** The five ranked health priorities selected by the Chicago Department of Public Health and Cook County Department of Public Health were compared in their original order to examine differences in priority selection.
+
+**Socioeconomic Stratification:** First-ranked IPLAN priorities were examined across higher- and lower-poverty and higher- and lower-uninsured county groups. Percentages were calculated to explore differences in the distribution of leading public health priorities across socioeconomic classifications.
+
+## Data Visualization
+
+Data visualizations were developed using R and ggplot2 to examine health priority distributions, geographic differences, priority alignment, and socioeconomic patterns. Statistical summaries and comparative graphs were used to present differences between hospital and local health department assessments.
+
+Geographic data were incorporated into an interactive GIS dashboard to display county-level demographic, socioeconomic, and healthcare access indicators across Illinois. The dashboard allows users to explore individual data layers and examine geographic patterns in population characteristics and resource availability.

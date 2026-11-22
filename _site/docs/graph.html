@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Health Priorities &amp; Population – Illinois Hospital CHNA and County IPLAN Comparison</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-4dc7aacfb5d098712d233d1f9506d872.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed fullcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Illinois Hospital CHNA and County IPLAN Comparison</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./graph.html" aria-current="page"> 
+<span class="menu-text">Visualizations</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./gismap.html"> 
+<span class="menu-text">GIS Map</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./method.html"> 
+<span class="menu-text">Methodology</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Health Priorities &amp; Population</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="illinois-county-public-health-analysis" class="level1">
+<h1>Illinois County Public Health Analysis</h1>
+<p>This section presents a collection of data visualizations examining hospital Community Health Needs Assessments (CHNAs), local health department Illinois Project for Local Assessment of Needs (IPLAN) priorities, and demographic and socioeconomic characteristics across Illinois. Analyses are organized across five geographic groups: Chicago, Suburban Cook, Suburban Non-Cook, Urban Non-Cook, and Rural.</p>
+<p>Using hospital assessment data, local health department priorities, U.S. Census Bureau American Community Survey (ACS) estimates, and geographic classifications, these analyses examine alignment between healthcare institutions and local public health departments. Interactive graphs, statistical comparisons, and geographic visualizations highlight differences in community health priorities, population characteristics, and socioeconomic conditions to inform public health planning and policy decisions.</p>
+<section id="variable-descriptive-statistics" class="level2">
+<h2 class="anchored" data-anchor-id="variable-descriptive-statistics">Variable Descriptive Statistics</h2>
+<p><img src="graph/descriptive_statistics.png" class="img-fluid"></p>
+<p><strong>Methods:</strong> Descriptive statistics were calculated for county-level demographic, socioeconomic, and healthcare access indicators. Measures included sample size, mean, standard deviation, median, minimum, and maximum.</p>
+<p><strong>Interpretation:</strong> The average county poverty rate was approximately 12%, with a median of 13%. Mean median household income was approximately $79,491. County population showed substantial variation, with the mean considerably higher than the median, reflecting the influence of highly populated areas.</p>
+</section>
+<section id="chna-and-iplan-priority-alignment-across-geographic-groups" class="level2">
+<h2 class="anchored" data-anchor-id="chna-and-iplan-priority-alignment-across-geographic-groups">CHNA and IPLAN Priority Alignment Across Geographic Groups</h2>
+<p><img src="graph/priority_overlap.png" class="img-fluid"></p>
+<p><strong>Methods:</strong> Hospital CHNA and local health department IPLAN priorities were standardized into common health topic categories and compared across five geographic groups. Shared priorities were identified within each group. Alignment was calculated as the number of shared priorities divided by the total number of unique priorities, multiplied by 100.</p>
+<p><strong>Interpretation:</strong> Overall, CHNA and IPLAN assessments shared 9 of 10 unique health priorities statewide, representing 90% overlap. Suburban Non-Cook demonstrated the highest alignment (77.8%), followed by Rural (62.5%) and Chicago (55.6%). Suburban Cook (37.5%) and Urban Non-Cook (33.3%) demonstrated the lowest alignment. Although statewide alignment was high, differences across geographic groups suggest that hospitals and local health departments do not always identify the same community health needs.</p>
+</section>
+<section id="first-ranked-hospital-chna-priorities-across-geographic-groups" class="level2">
+<h2 class="anchored" data-anchor-id="first-ranked-hospital-chna-priorities-across-geographic-groups">First-Ranked Hospital CHNA Priorities Across Geographic Groups</h2>
+<iframe src="chna.html" width="100%" height="700" style="border: none;">
+</iframe>
+<p><strong>Methods:</strong> Hospital CHNA first-ranked priorities were examined across the five geographic groups. The number of hospitals identifying each health topic as their highest-ranked priority was calculated and compared by geographic location.</p>
+<p><strong>Interpretation:</strong> Behavioral and Mental Health was the leading first-ranked hospital priority in Chicago (12 hospitals), Suburban Cook (10), and Urban Non-Cook (31). Rural hospitals were divided between Behavioral and Mental Health and Access to Care and Healthcare Equity (6 each). Suburban Non-Cook hospitals identified Access to Care and Healthcare Equity as their leading first-ranked priority (11 hospitals). These findings demonstrate geographic variation in the primary health needs emphasized by hospitals.</p>
+</section>
+<section id="first-ranked-county-iplan-priorities-across-geographic-groups" class="level2">
+<h2 class="anchored" data-anchor-id="first-ranked-county-iplan-priorities-across-geographic-groups">First-Ranked County IPLAN Priorities Across Geographic Groups</h2>
+<iframe src="iplan.html" width="100%" height="700" style="border: none;">
+</iframe>
+<p><strong>Methods:</strong> First-ranked IPLAN priorities were examined across the five geographic groups. The frequency of each leading health topic was calculated to identify differences in the primary priorities selected by local health departments.</p>
+<p><strong>Interpretation:</strong> Behavioral and Mental Health was the leading first-ranked priority in Urban Non-Cook (10 assessments), Suburban Non-Cook (7), and Rural jurisdictions (7). In contrast, Chicago and Suburban Cook identified Chronic Disease Management as their first-ranked priority. These findings demonstrate differences between hospital and public health department priorities across geographic areas.</p>
+</section>
+<section id="geographic-distribution-of-hospital-chna-priorities" class="level2">
+<h2 class="anchored" data-anchor-id="geographic-distribution-of-hospital-chna-priorities">Geographic Distribution of Hospital CHNA Priorities</h2>
+<p><img src="graph/chnas.png" class="img-fluid"></p>
+<p><strong>Methods:</strong> Hospital CHNA priorities were grouped by geographic location and standardized across ten health topic categories. The proportion of hospital assessments identifying each priority was calculated within each topic to examine its geographic distribution.</p>
+<p><strong>Interpretation:</strong> The geographic distribution of hospital priorities varied by health topic. Behavioral and Mental Health and Chronic Disease Management were represented across multiple geographic groups. Substance Abuse was exclusively represented in rural hospital assessments. Other topics, including Maternal, Infant, and Child Health and Injury Prevention and Safety, also demonstrated differences in geographic representation.</p>
+</section>
+<section id="geographic-distribution-of-county-iplan-priorities" class="level2">
+<h2 class="anchored" data-anchor-id="geographic-distribution-of-county-iplan-priorities">Geographic Distribution of County IPLAN Priorities</h2>
+<p><img src="graph/iplans.png" class="img-fluid"></p>
+<p><strong>Methods:</strong> County and Chicago IPLAN priorities were grouped into the five geographic classifications. The proportion of IPLAN assessments identifying each health topic was calculated to examine the geographic distribution of reported priorities.</p>
+<p><strong>Interpretation:</strong> Substance Abuse was exclusively represented in rural IPLAN assessments. Urban and suburban jurisdictions contributed substantially to priorities such as Infectious Disease Prevention and Control, Injury Prevention and Safety, and Social Determinants of Health. These findings illustrate how local public health priorities vary across geographic settings.</p>
+</section>
+<section id="prevalence-of-top-three-overall-chna-health-priorities" class="level2">
+<h2 class="anchored" data-anchor-id="prevalence-of-top-three-overall-chna-health-priorities">Prevalence of Top Three Overall CHNA Health Priorities</h2>
+<p><img src="graph/chna3.png" class="img-fluid"></p>
+<p><strong>Methods:</strong> Three frequently identified hospital CHNA priorities were selected for comparison: Behavioral and Mental Health, Access to Care and Healthcare Equity, and Chronic Disease Management. The percentage of hospitals identifying each priority was calculated within each geographic group.</p>
+<p><strong>Interpretation:</strong> Behavioral and Mental Health demonstrated consistently high prevalence across all geographic groups, ranging from 73.9% in Suburban Non-Cook to 96.6% in Chicago. Chronic Disease Management showed considerable geographic variation, with the highest prevalence in Suburban Cook (85.0%) and the lowest in Rural areas (31.2%). Access to Care and Healthcare Equity was also commonly identified, although its prevalence varied across regions.</p>
+</section>
+<section id="prevalence-of-top-three-overall-iplan-health-priorities" class="level2">
+<h2 class="anchored" data-anchor-id="prevalence-of-top-three-overall-iplan-health-priorities">Prevalence of Top Three Overall IPLAN Health Priorities</h2>
+<p><img src="graph/iplan3.png" class="img-fluid"></p>
+<p><strong>Methods:</strong> Three frequently identified IPLAN priorities were examined across geographic groups: Behavioral and Mental Health, Chronic Disease Management, and Healthy Behaviors and Wellness. The percentage of local health department assessments identifying each priority was calculated within each group.</p>
+<p><strong>Interpretation:</strong> Behavioral and Mental Health and Chronic Disease Management were identified in 100% of both Chicago and Suburban Cook IPLAN assessments. Behavioral and Mental Health was also prevalent in Rural (100%), Suburban Non-Cook (88.2%), and Urban Non-Cook (89.7%) jurisdictions. Healthy Behaviors and Wellness was most frequently identified in Rural jurisdictions (57.1%), followed by Suburban Non-Cook (41.2%).</p>
+<p><strong>Data consideration:</strong> Chicago and Suburban Cook each have one IPLAN observation, so their percentages represent individual assessments rather than broader jurisdictional patterns.</p>
+</section>
+<section id="comparison-of-cook-county-and-chicago-health-priorities" class="level2">
+<h2 class="anchored" data-anchor-id="comparison-of-cook-county-and-chicago-health-priorities">Comparison of Cook County and Chicago Health Priorities</h2>
+<p><img src="graph/chnacc.png" class="img-fluid"></p>
+<p><strong>Methods:</strong> Hospital CHNA priorities were compared with local health department IPLAN priorities in Chicago and Suburban Cook. Chicago hospital assessments were compared with the Chicago Department of Public Health (CDPH) IPLAN, while Cook County hospital assessments outside Chicago were compared with the Cook County Department of Public Health (CCDPH) IPLAN. The percentage of assessments identifying each health topic was calculated to examine institutional differences.</p>
+<p><strong>Interpretation:</strong> Hospital and public health department assessments demonstrated alignment in Behavioral and Mental Health and Chronic Disease Management. However, hospitals placed additional emphasis on Access to Care and Healthcare Equity and Social Determinants of Health. Access to Care reached approximately 75% among hospital assessments, while Social Determinants of Health reached approximately 55.2%. These priorities were not represented in the municipal IPLAN frameworks, highlighting differences in the health needs emphasized by clinical institutions and local public health departments.</p>
+</section>
+<section id="ordered-comparison-of-chicago-and-suburban-cook-county-iplan-priorities" class="level2">
+<h2 class="anchored" data-anchor-id="ordered-comparison-of-chicago-and-suburban-cook-county-iplan-priorities">Ordered Comparison of Chicago and Suburban Cook County IPLAN Priorities</h2>
+<p><img src="graph/cookchi.png" class="img-fluid"></p>
+<p><strong>Methods:</strong> The five ranked IPLAN priorities selected by the Chicago Department of Public Health and Cook County Department of Public Health were compared in their original order of selection. Each priority was organized by rank to identify similarities and differences in the jurisdictions’ stated priorities.</p>
+<p><strong>Interpretation:</strong> Both Chicago and Suburban Cook identified Chronic Disease Management as their first-ranked priority. However, their subsequent rankings differed. Chicago placed greater emphasis on Injury Prevention and Safety and Infectious Disease Prevention and Control, while Suburban Cook prioritized Maternal, Infant, and Child Health and Behavioral and Mental Health in its second and third positions. These differences illustrate how neighboring jurisdictions can identify different areas of public health emphasis.</p>
+</section>
+<section id="poverty-rate-and-uninsured-rate-associations-with-iplan-health-priorities" class="level2">
+<h2 class="anchored" data-anchor-id="poverty-rate-and-uninsured-rate-associations-with-iplan-health-priorities">Poverty Rate and Uninsured Rate Associations with IPLAN Health Priorities</h2>
+<p><img src="graph/social.png" class="img-fluid"></p>
+<p><strong>Methods:</strong> Counties were stratified into higher- and lower-poverty groups and higher- and lower-uninsured groups. The distribution of first-ranked IPLAN priorities was compared across these socioeconomic classifications. The percentage of counties within each group identifying each priority was calculated.</p>
+<p><strong>Interpretation:</strong> Behavioral and Mental Health remained the leading first-ranked priority across poverty and uninsured classifications, representing approximately 53–57% of counties.</p>
+<ul>
+<li><strong>Poverty:</strong> Higher-poverty counties identified Chronic Disease Management more frequently than lower-poverty counties (35% versus 13%). Conversely, Access to Care and Healthcare Equity was more common among lower-poverty counties (30.4% versus 10%).</li>
+<li><strong>Uninsured status:</strong> Behavioral and Mental Health remained the leading priority across both uninsured groups (53.3–57.1%). Chronic Disease Management represented 26.7% of higher-uninsured counties compared with 21.4% of lower-uninsured counties.</li>
+</ul>
+<p>These findings suggest that socioeconomic characteristics may be associated with differences in the health priorities selected by local public health departments.</p>
+</section>
+<section id="geographic-visualization-and-county-level-indicators" class="level2">
+<h2 class="anchored" data-anchor-id="geographic-visualization-and-county-level-indicators">Geographic Visualization and County-Level Indicators</h2>
+<p>The interactive GIS dashboard provides a geographic view of county-level demographic, socioeconomic, and healthcare access indicators across Illinois.</p>
+<p><strong>Methods:</strong> County-level data were integrated with geographic boundary files to create interactive maps. Variables include population characteristics, poverty, insurance coverage, age distribution, racial and ethnic composition, and geographic classifications. Map layers allow users to examine individual indicators and compare their distributions across counties.</p>
+<p><strong>Interpretation:</strong> Geographic visualization provides additional context for understanding the distribution of demographic and socioeconomic characteristics across Illinois. Differences in population composition, poverty, and insurance coverage can help identify geographic areas where additional public health attention or healthcare resources may be needed.</p>
+</section>
+<section id="data-considerations" class="level2">
+<h2 class="anchored" data-anchor-id="data-considerations">Data Considerations</h2>
+<p>Findings reflect available hospital CHNA reports, local health department IPLAN assessments, and county-level demographic and socioeconomic data. Not all counties and hospitals had available assessment information, and reporting years varied. Geographic comparisons were organized into five mutually defined groups to distinguish Chicago from Suburban Cook and other urban and rural areas.</p>
+<p>Some geographic comparisons, particularly Chicago and Suburban Cook IPLAN analyses, are based on a single local health department assessment. These findings should therefore be interpreted as jurisdiction-specific observations rather than estimates representative of multiple jurisdictions.</p>
+<p>Demographic and socioeconomic comparisons are based on aggregated county-level data and should not be interpreted as evidence of individual-level relationships or causation. Additionally, the frequency with which a health topic is identified reflects assessment priorities and does not necessarily measure the prevalence or severity of the underlying health condition.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -1,0 +1,90 @@
+---
+title: "GIS Map"
+format: html
+editor: visual
+---
+
+## Overview
+
+This interactive geographic information system (GIS) map explores
+county-level differences in population demographics, socioeconomic
+conditions, healthcare access, and community health priorities
+throughout Illinois.
+
+The map allows users to examine how health-related indicators vary
+across counties and geographic groups. Select different map layers
+to explore demographic characteristics, healthcare access, and
+hospital and community health priorities.
+
+**How to use the map:**
+
+- Select an indicator using the layer controls.
+- Hover over a county to view its name, population, and indicator value.
+- Compare county-level patterns across Illinois.
+- Use the geographic group boundaries to identify broader regional
+  patterns.
+
+## Interactive County Map
+
+<iframe
+  src="website/map.html"
+  width="100%"
+  height="700"
+  style="border: none;">
+</iframe>
+
+## Geographic Group Comparison
+
+Illinois counties are organized into geographic groups to examine
+differences in population characteristics, socioeconomic conditions,
+and healthcare access.
+
+The map displays county boundaries alongside geographic group
+boundaries to distinguish individual county patterns from broader
+regional patterns.
+
+### Geographic Groups
+
+- **Urban:** Counties classified as urban.
+- **Suburban:** Counties classified as suburban.
+- **Rural:** Counties classified as rural.
+
+Use the map to explore how demographic and healthcare indicators
+vary across these geographic groups.
+
+## Geographic Patterns and Interpretation
+
+The geographic distribution of health indicators can help identify
+areas where population characteristics, socioeconomic conditions,
+and healthcare resources differ.
+
+Consider the following when interpreting the map:
+
+- **Population demographics:** How do age and racial and ethnic
+  compositions vary across counties?
+- **Socioeconomic conditions:** Where are poverty rates higher?
+- **Healthcare access:** How does the uninsured population vary
+  geographically? Where are hospital resources concentrated?
+- **Community health priorities:** Do CHNA and IPLAN priorities
+  appear consistent across counties and geographic groups?
+
+These patterns provide geographic context for the findings presented
+in the Health Priorities and Population & Healthcare Access sections
+of this dashboard.
+
+## Data Notes and Limitations
+
+- **Geographic unit:** Illinois counties.
+- **Geographic classification:** Urban, Suburban, and Rural.
+- **Population:** County-level population estimates.
+- **Demographic indicators:** Age and racial and ethnic composition.
+- **Socioeconomic indicators:** Poverty and health insurance coverage.
+- **Healthcare indicators:** Number of hospitals in each county.
+- **Community health priorities:** Top three priorities identified
+  in hospital CHNAs and county IPLANs.
+
+County-level data represent aggregated population characteristics
+and should not be interpreted as individual-level outcomes.
+
+Differences in data availability, reporting periods, and source
+methodologies may affect comparisons across counties.

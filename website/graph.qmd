@@ -28,7 +28,7 @@ Using hospital assessment data, local health department priorities, U.S. Census 
 ## First-Ranked Hospital CHNA Priorities Across Geographic Groups
 
 <iframe
-  src="chna.html"
+  src="website/chna.html"
   width="100%"
   height="700"
   style="border: none;">
@@ -41,7 +41,7 @@ Using hospital assessment data, local health department priorities, U.S. Census 
 ## First-Ranked County IPLAN Priorities Across Geographic Groups
 
 <iframe
-  src="iplan.html"
+  src="website/iplan.html"
   width="100%"
   height="700"
   style="border: none;">

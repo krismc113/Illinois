@@ -4,586 +4,763 @@ format: html
 editor: visual
 ---
 
-## Foundation
+## Packages
 
 ```{r}
 
-library(tigris)
-library(sf)
-library(dplyr)
-library(stringr)
-
-options(tigris_use_cache = TRUE)
-
-# 1. Standardize county names in analysis data
-analysis_data <- analysis_data %>%
-  mutate(
-    county_name = str_to_upper(str_trim(County))
-  )
-
-# 2. Download Illinois county boundaries
-ilco <- counties(
-  state = "IL",
-  cb = TRUE,
-  year = 2024
+packages <- c(
+  "sf",
+  "leaflet",
+  "dplyr",
+  "tidyr",
+  "stringr",
+  "jsonlite",
+  "htmlwidgets",
+  "htmltools",
+  "maps",
+  "RColorBrewer",
+  "scales",
+  "tibble"
 )
 
-# 3. Standardize county names in boundary data
+```
+
+
+
+## Identify the six priority variables
+
+```{r}
+
+priority_fields <- c(
+  "Priority 1_CHNA",
+  "Priority 2_CHNA",
+  "Priority 3_CHNA",
+  "Priority 1_IPLAN",
+  "Priority 2_IPLAN",
+  "Priority 3_IPLAN"
+)
+
+missing_priorities <- setdiff(
+  priority_fields,
+  names(analysis_data)
+)
+
+if (length(missing_priorities) > 0) {
+  stop(
+    paste(
+      "Missing priority columns:",
+      paste(missing_priorities, collapse = ", ")
+    )
+  )
+}
+
+priority_labels <- c(
+  "Priority 1_CHNA" = "CHNA Priority 1",
+  "Priority 2_CHNA" = "CHNA Priority 2",
+  "Priority 3_CHNA" = "CHNA Priority 3",
+  "Priority 1_IPLAN" = "IPLAN Priority 1",
+  "Priority 2_IPLAN" = "IPLAN Priority 2",
+  "Priority 3_IPLAN" = "IPLAN Priority 3"
+)
+
+```
+
+
+## Group all map variables
+
+```{r}
+
+# County Population
+population_fields <- "Population"
+
+# Race and Ethnicity: percentages only
+demographic_fields <- grep(
+  "\\(\\%\\)$",
+  names(analysis_data),
+  value = TRUE
+)
+
+demographic_fields <- demographic_fields[
+  demographic_fields %in% c(
+    "White (%)",
+    "Black or African American (%)",
+    "Hispanic (%)",
+    "American Indian or Alaska Native (%)",
+    "Asian, Native Hawaiian, or Pacific Islander (%)"
+  )
+]
+
+# CHNA Priorities 1-3
+chna_fields <- paste0("Priority ", 1:3, "_CHNA")
+
+# IPLAN Priorities 1-3
+iplan_fields <- paste0("Priority ", 1:3, "_IPLAN")
+
+# Poverty: percentage only
+poverty_fields <- "Poverty (%)"
+
+# Uninsured: percentage only
+uninsured_fields <- "Uninsured (%)"
+
+# Hospital count only
+hospital_fields <- "Number of Hospitals with CHNAS"
+
+# Geographic Groups
+geo_group_field <- "Geographic_Group"
+
+# Organize dropdown
+variable_groups <- list(
+  "County Population" = population_fields,
+  "Race and Ethnicity (%)" = demographic_fields,
+  "CHNA Priorities" = chna_fields,
+  "IPLAN Priorities" = iplan_fields,
+  "Poverty Rate (%)" = poverty_fields,
+  "Uninsured Rate (%)" = uninsured_fields,
+  "Number of Hospitals" = hospital_fields,
+  "Geographic Groups" = geo_group_field
+)
+
+# Remove unavailable fields
+variable_groups <- lapply(variable_groups, function(x) {
+  x[x %in% names(analysis_data)]
+})
+
+variable_groups <- variable_groups[lengths(variable_groups) > 0]
+
+map_fields <- unique(unlist(variable_groups, use.names = FALSE))
+
+# Convert groups to JSON
+groups_json <- jsonlite::toJSON(
+  variable_groups,
+  auto_unbox = FALSE
+)
+
+```
+
+## Check selected variables
+
+```{r}
+
+
+cat("\nMAP VARIABLES BY CATEGORY\n\n")
+
+for (category in names(variable_groups)) {
+
+  cat("\n", category, "\n", sep = "")
+
+  print(variable_groups[[category]])
+}
+
+# Check for variables that were not found
+if (length(population_fields) == 0) {
+  warning("County population column was not detected.")
+}
+
+if (length(demographic_fields) == 0) {
+  warning("Race and ethnicity columns were not detected.")
+}
+
+if (length(poverty_fields) == 0) {
+  warning("Poverty rate column was not detected.")
+}
+
+if (length(uninsured_fields) == 0) {
+  warning("Uninsured rate column was not detected.")
+}
+
+if (length(hospital_fields) == 0) {
+  warning("Hospital count columns were not detected.")
+}
+
+```
+
+## Create Illinois county boundaries
+
+```{r}
+
+illinois_counties <- maps::map(
+  database = "county",
+  regions = "illinois",
+  plot = FALSE,
+  fill = TRUE
+)
+
+ilco <- st_as_sf(illinois_counties)
+
 ilco <- ilco %>%
   mutate(
-    county_name = str_to_upper(str_trim(NAME))
+    County_Key = ID %>%
+      str_remove("^illinois,") %>%
+      str_to_lower() %>%
+      str_squish() %>%
+      str_remove("\\s+county$")
   )
 
-# 4. Join analysis data to county boundaries
-illinois_gis <- ilco %>%
+```
+
+## Join county data to map
+
+```{r}
+
+
+county_data <- analysis_map_data %>%
+  select(
+    County,
+    County_Key,
+    all_of(map_fields)
+  )
+
+il_map_data <- ilco %>%
   left_join(
-    analysis_data,
-    by = "county_name"
+    county_data,
+    by = "County_Key"
   )
 
-# 5. Check geographic join
-print(illinois_gis)
+# Verify county matches
+matched_counties <- sum(
+  !is.na(il_map_data$County)
+)
 
-# 6. Check counties without matching data
-unmatched_counties <- illinois_gis %>%
+cat(
+  "Matched counties:",
+  matched_counties,
+  "of",
+  nrow(il_map_data),
+  "\n"
+)
+
+# Check unmatched counties
+unmatched_counties <- il_map_data %>%
+  filter(is.na(County))
+
+if (nrow(unmatched_counties) > 0) {
+  print(unmatched_counties$ID)
+}
+
+```
+## Set priorty colors and map labels
+
+```{r}
+
+priority_colors <- c(
+  "Behavioral and Mental Health" = "#4E79A7",
+  "Access to Care and Healthcare Equity" = "#F28E2B",
+  "Chronic Disease Management" = "#E15759",
+  "Social Determinants of Health" = "#76B7B2",
+  "Healthy Behaviors" = "#59A14F",
+  "Community Safety" = "#EDC948",
+  "Maternal and Child Health" = "#B07AA1",
+  "Environmental Health" = "#FF9DA7",
+  "Injury Prevention and Safety" = "#9C755F",
+  "Healthcare Capacity" = "#BAB0AC"
+)
+
+# Friendly names for the dropdown
+display_labels <- setNames(
+  map_fields,
+  map_fields
+)
+
+display_labels[names(priority_labels)] <- priority_labels
+
+```
+
+## Prepare map data for JavaScript
+
+```{r}
+
+map_records <- il_map_data %>%
   st_drop_geometry() %>%
-  filter(is.na(Population)) %>%
-  select(county_name)
-
-print(unmatched_counties)
-
-# 7. Check number of matched and unmatched counties
-cat("Total counties:", nrow(illinois_gis), "\n")
-cat("Matched counties:", sum(!is.na(illinois_gis$Population)), "\n")
-cat("Unmatched counties:", nrow(unmatched_counties), "\n")
-
-geographic_boundaries <- illinois_gis %>%
-  filter(!is.na(Geographic_Group)) %>%
-  group_by(Geographic_Group) %>%
-  summarise(
-    do_union = TRUE,
-    .groups = "drop"
+  transmute(
+    county_name = County,
+    across(all_of(map_fields))
   )
 
-
-```
-
-## Variables
-
-```{r}
-
-age_cols <- c(
-  "Age 0-17 (%)",
-  "Age 18-39 (%)",
-  "Age 40-64 (%)",
-  "Age 65 and over (%)"
+records_json <- jsonlite::toJSON(
+  map_records,
+  dataframe = "rows",
+  na = "null",
+  auto_unbox = TRUE
 )
 
-race_cols <- c(
-  "White (%)",
-  "Black or African American (%)",
-  "Hispanic (%)",
-  "American Indian or Alaska Native (%)",
-  "Asian, Native Hawaiian, or Pacific Islander (%)"
+groups_json <- jsonlite::toJSON(
+  variable_groups,
+  auto_unbox = FALSE
 )
 
-# Convert columns to numeric
-illinois_gis <- illinois_gis %>%
-  mutate(
-    across(
-      all_of(c(age_cols, race_cols)),
-      ~ parse_number(as.character(unlist(.x)))
-    )
-  )
-```
+labels_json <- jsonlite::toJSON(
+  as.list(display_labels),
+  auto_unbox = TRUE
+)
 
-## Variables
+colors_json <- jsonlite::toJSON(
+  as.list(priority_colors),
+  auto_unbox = TRUE
+)
 
-```{r}
-
-illinois_gis$Predominant_Race <- get_dominant_group(
-  illinois_gis,
-  race_cols,
-  c("White", "Black or African American",
-    "Hispanic", "American Indian or Alaska Native",
-    "Asian/Native Hawaiian/Pacific Islander")
+geo_json <- jsonlite::toJSON(
+  if (is.na(geo_group_field)) "" else geo_group_field,
+  auto_unbox = TRUE
 )
 
 ```
 
-## Leaflet
+## Interactive map
 
 ```{r}
 
-
-# ==========================================
-# ILLINOIS COUNTY HEALTH INDICATORS MAP
-# ==========================================
-
+# Load Leaflet
 library(leaflet)
-library(sf)
 library(dplyr)
-library(htmltools)
-library(stringr)
 
-# ------------------------------------------
-# 1. DEFINE TOGGLEABLE VARIABLES
-# ------------------------------------------
-
-map_variables <- c(
-  "White (%)",
-  "Black or African American (%)",
-  "Hispanic (%)",
-  "American Indian or Alaska Native (%)",
-  "Asian, Native Hawaiian, or Pacific Islander (%)",
-  "Poverty (%)",
-  "Uninsured (%)",
-  "Number of Hospitals in County"
-)
-
-# Keep only columns that exist
-map_variables <- intersect(
-  map_variables,
-  names(illinois_gis)
-)
-
-# Age variables
-age_variables <- c(
-  "Age 0-17 (%)",
-  "Age 18-39 (%)",
-  "Age 40-64 (%)",
-  "Age 65 and over (%)"
-)
-
-age_variables <- intersect(
-  age_variables,
-  names(illinois_gis)
-)
-
-# Priority columns
-iplan_cols <- paste0("Priority ", 1:3, "_IPLAN")
-chna_cols  <- paste0("Priority ", 1:3, "_CHNA")
-
-missing_iplan <- setdiff(iplan_cols, names(illinois_gis))
-missing_chna  <- setdiff(chna_cols, names(illinois_gis))
-
-print(missing_iplan)
-print(missing_chna)
-
-# ------------------------------------------
-# 2. PREPARE POPULATION AND PRIORITIES
-# ------------------------------------------
-
-illinois_gis <- illinois_gis %>%
-  mutate(
-    Population_Label = ifelse(
-      is.na(Population),
-      "Not available",
-      format(round(Population), big.mark = ",")
-    )
-  )
-
-# Create IPLAN top-three hover labels
-if (length(missing_iplan) == 0) {
-
-  illinois_gis$IPLAN_Top_3 <- apply(
-    st_drop_geometry(illinois_gis[, iplan_cols]),
-    1,
-    function(x) {
-      paste(
-        na.omit(as.character(x)),
-        collapse = " | "
-      )
-    }
-  )
-}
-
-# Create CHNA top-three hover labels
-if (length(missing_chna) == 0) {
-
-  illinois_gis$CHNA_Top_3 <- apply(
-    st_drop_geometry(illinois_gis[, chna_cols]),
-    1,
-    function(x) {
-      paste(
-        na.omit(as.character(x)),
-        collapse = " | "
-      )
-    }
-  )
-}
-
-# Define available priority layers
-priority_layers <- c(
-  if (length(missing_iplan) == 0)
-    "IPLAN Top 3 Priorities",
-  if (length(missing_chna) == 0)
-    "CHNA Top 3 Priorities"
-)
-
-# ------------------------------------------
-# 3. GEOGRAPHIC GROUP COLORS
-# ------------------------------------------
-
-group_palette <- c(
-  "#527D9A",
-  "#A66B58",
-  "#78916A",
-  "#927DA8",
-  "#B18C4E",
-  "#568F8B"
-)
-
-group_colors <- colorFactor(
-  palette = group_palette,
-  domain = geographic_boundaries$Geographic_Group
-)
-
-# ------------------------------------------
-# 4. START LEAFLET MAP
-# ------------------------------------------
-
-bbox <- st_bbox(illinois_gis)
-
-illinois_map <- leaflet(
-  options = leafletOptions(
-    zoomControl = TRUE,
-    minZoom = 5,
-    maxZoom = 10
-  )
-) %>%
-  addProviderTiles("OpenStreetMap.Mapnik") %>%
+# Create county map
+map <- leaflet(il_map_data) %>%
+  addProviderTiles(
+    providers$CartoDB.Positron
+  ) %>%
+  addPolygons(
+    layerId = ~County,
+    group = "Counties",
+    color = "#FFFFFF",
+    weight = 1.2,
+    opacity = 1,
+    fillColor = "#DCEAF5",
+    fillOpacity = 0.9,
+    highlightOptions = highlightOptions(
+      weight = 2.5,
+      color = "#142D4E",
+      bringToFront = TRUE
+    ),
+    label = ~County
+  ) %>%
   fitBounds(
-    lng1 = as.numeric(bbox["xmin"]),
-    lat1 = as.numeric(bbox["ymin"]),
-    lng2 = as.numeric(bbox["xmax"]),
-    lat2 = as.numeric(bbox["ymax"])
+    lng1 = -91.6,
+    lat1 = 36.9,
+    lng2 = -87.4,
+    lat2 = 42.6
   )
 
-# ------------------------------------------
-# 5. ADD DEMOGRAPHIC AND HEALTHCARE LAYERS
-# ------------------------------------------
+# Display map
+map
 
-for (variable in map_variables) {
+```
 
-  values <- illinois_gis[[variable]]
+## Add grouped dropdown, legend, and hover details
 
-  if (is.numeric(values)) {
+```{r}
 
-    palette <- colorNumeric(
-      palette = "Blues",
-      domain = values,
-      na.color = "transparent"
-    )
 
-    colors <- palette(values)
+map_css <- "
+.map-controls {
+  background: rgba(255,255,255,0.97);
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(20,45,78,0.18);
+  font-family: 'Times New Roman', serif;
+  color: #142D4E;
+  min-width: 245px;
+}
 
-    labels <- ifelse(
-      is.na(values),
-      "Not available",
-      if (variable == "Number of Hospitals in County") {
-        paste0(variable, ": ", round(values, 0))
-      } else {
-        paste0(variable, ": ", round(values, 2), "%")
-      }
-    )
+.map-controls select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 8px;
+  border: 1px solid #C7D4E2;
+  border-radius: 4px;
+  background: white;
+  color: #142D4E;
+}
 
-  } else {
+.map-legend {
+  background: rgba(255,255,255,0.97);
+  padding: 12px 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(20,45,78,0.18);
+  font-family: 'Times New Roman', serif;
+  color: #142D4E;
+}
 
-    palette <- colorFactor(
-      palette = "Set2",
-      domain = values,
-      na.color = "transparent"
-    )
+.legend-item {
+  display: flex;
+  align-items: center;
+  margin: 5px 0;
+  font-size: 13px;
+}
 
-    colors <- palette(values)
+.legend-color {
+  width: 13px;
+  height: 13px;
+  margin-right: 8px;
+  border: 1px solid #999;
+  flex-shrink: 0;
+}
 
-    labels <- paste0(
-      variable, ": ",
-      ifelse(
-        is.na(values),
-        "Not available",
-        as.character(values)
-      )
-    )
+.leaflet-tooltip {
+  background: white;
+  border: 1px solid #D5DFE9;
+  color: #26374A;
+  font-family: 'Times New Roman', serif;
+  border-radius: 5px;
+}
+"
+
+map_js <- "
+function(el, x) {
+
+  var map = this;
+
+  var records = DATA_RECORDS;
+  var groups = VARIABLE_GROUPS;
+  var labels = DISPLAY_LABELS;
+  var priorityColors = PRIORITY_COLORS;
+  var geographicField = GEOGRAPHIC_FIELD;
+
+  var geoPalette = [
+    '#4E79A7', '#F28E2B', '#59A14F',
+    '#B07AA1', '#E15759', '#76B7B2',
+    '#9C755F', '#EDC948'
+  ];
+
+  var geoColors = {};
+
+  var panel = L.control({position: 'topright'});
+
+  panel.onAdd = function() {
+
+    var div = L.DomUtil.create('div', 'map-controls');
+
+    div.innerHTML =
+      '<strong>Illinois County Health Indicators</strong>' +
+      '<br><label>Select variable</label>' +
+      '<select id=\"indicator-select\"></select>';
+
+    L.DomEvent.disableClickPropagation(div);
+
+    return div;
+  };
+
+  panel.addTo(map);
+
+  var selector = document.getElementById('indicator-select');
+
+  Object.keys(groups).forEach(function(category) {
+
+    var optgroup = document.createElement('optgroup');
+    optgroup.label = category;
+
+    groups[category].forEach(function(field) {
+
+      var option = document.createElement('option');
+      option.value = field;
+      option.textContent = labels[field] || field;
+
+      optgroup.appendChild(option);
+    });
+
+    selector.appendChild(optgroup);
+  });
+
+  var legend = L.control({position: 'bottomright'});
+
+  legend.onAdd = function() {
+    var div = L.DomUtil.create('div', 'map-legend');
+    div.id = 'county-map-legend';
+    return div;
+  };
+
+  legend.addTo(map);
+
+  function getRecord(county) {
+
+    return records.find(function(row) {
+      return row.county_name === county;
+    });
   }
 
-  illinois_map <- illinois_map %>%
-    addPolygons(
-      data = illinois_gis,
-      fillColor = colors,
-      fillOpacity = 0.75,
-      color = "#777777",
-      weight = 0.5,
-      opacity = 0.8,
-      group = variable,
-      label = paste0(
-        illinois_gis$County,
-        " | Population: ",
-        illinois_gis$Population_Label,
-        " | ",
-        labels
-      ),
-      highlightOptions = highlightOptions(
-        weight = 2,
-        color = "#222222",
-        bringToFront = TRUE
-      )
-    )
+  function getValues(field) {
+
+    return records.map(function(row) {
+      return Number(row[field]);
+    }).filter(function(value) {
+      return Number.isFinite(value);
+    });
+  }
+
+  function getColor(value, field) {
+
+    if (value === null || value === undefined || value === '') {
+      return '#D9E2EC';
+    }
+
+    var textValue = String(value);
+
+    if (priorityColors[textValue]) {
+      return priorityColors[textValue];
+    }
+
+    if (field === geographicField) {
+
+      if (!geoColors[textValue]) {
+        var index = Object.keys(geoColors).length;
+        geoColors[textValue] =
+          geoPalette[index % geoPalette.length];
+      }
+
+      return geoColors[textValue];
+    }
+
+    var numericValue = Number(value);
+
+    if (!Number.isFinite(numericValue)) {
+      return '#D9E2EC';
+    }
+
+    var values = getValues(field);
+
+    if (values.length === 0) {
+      return '#D9E2EC';
+    }
+
+    var min = Math.min.apply(null, values);
+    var max = Math.max.apply(null, values);
+
+    if (min === max) {
+      return '#4E79A7';
+    }
+
+    var p = (numericValue - min) / (max - min);
+
+    if (p < 0.25) return '#EFF3F8';
+    if (p < 0.50) return '#BDD7E7';
+    if (p < 0.75) return '#6BAED6';
+
+    return '#2171B5';
+  }
+
+  function updateLegend(field) {
+
+    var html =
+      '<strong>' + (labels[field] || field) + '</strong>';
+
+    var values = Array.from(new Set(
+      records.map(function(row) {
+        return row[field];
+      }).filter(function(value) {
+        return value !== null &&
+          value !== undefined &&
+          value !== '';
+      })
+    ));
+
+    var categorical = field === geographicField ||
+      values.some(function(value) {
+        return !Number.isFinite(Number(value)) ||
+          priorityColors[String(value)];
+      });
+
+    if (categorical) {
+
+      values.forEach(function(value) {
+
+        html +=
+          '<div class=\"legend-item\">' +
+          '<span class=\"legend-color\" style=\"background:' +
+          getColor(value, field) + '\"></span>' +
+          value +
+          '</div>';
+      });
+
+    } else {
+
+      html +=
+        '<div class=\"legend-item\">' +
+        '<span class=\"legend-color\" style=\"background:#EFF3F8\"></span>' +
+        'Lower values</div>' +
+        '<div class=\"legend-item\">' +
+        '<span class=\"legend-color\" style=\"background:#BDD7E7\"></span>' +
+        'Moderate values</div>' +
+        '<div class=\"legend-item\">' +
+        '<span class=\"legend-color\" style=\"background:#6BAED6\"></span>' +
+        'Higher values</div>' +
+        '<div class=\"legend-item\">' +
+        '<span class=\"legend-color\" style=\"background:#2171B5\"></span>' +
+        'Highest values</div>';
+    }
+
+    html +=
+      '<div class=\"legend-item\">' +
+      '<span class=\"legend-color\" style=\"background:#D9E2EC\"></span>' +
+      'No data</div>';
+
+    document.getElementById('county-map-legend').innerHTML = html;
+  }
+
+  function hoverContent(record) {
+
+    if (!record) return 'No data available';
+
+    var html =
+      '<strong>' + record.county_name + '</strong>';
+
+    if (geographicField && record[geographicField] != null) {
+      html += '<br><strong>Geographic Group:</strong> ' +
+        record[geographicField];
+    }
+
+    html += '<hr style=\"margin:6px 0;\">';
+
+    var hoverFields = [
+      'Priority 1_CHNA',
+      'Priority 2_CHNA',
+      'Priority 3_CHNA',
+      'Priority 1_IPLAN',
+      'Priority 2_IPLAN',
+      'Priority 3_IPLAN'
+    ];
+
+    hoverFields.forEach(function(field) {
+
+      var value = record[field];
+
+      if (value !== null && value !== undefined && value !== '') {
+
+        html +=
+          '<div><strong>' + labels[field] + ':</strong> ' +
+          value + '</div>';
+      }
+    });
+
+    return html;
+  }
+
+  function updateMap(field) {
+
+    map.eachLayer(function(layer) {
+
+      var county = layer.options && layer.options.layerId;
+
+      if (!county || !layer.setStyle) return;
+
+      var record = getRecord(county);
+
+      var value = record ? record[field] : null;
+
+      layer.setStyle({
+        fillColor: getColor(value, field),
+        fillOpacity: 0.9,
+        color: '#FFFFFF',
+        weight: 1.2
+      });
+    });
+
+    updateLegend(field);
+  }
+
+  map.eachLayer(function(layer) {
+
+    var county = layer.options && layer.options.layerId;
+
+    if (!county || !layer.bindTooltip) return;
+
+    var record = getRecord(county);
+
+    if (record) {
+      layer.bindTooltip(hoverContent(record), {
+        sticky: true,
+        direction: 'auto'
+      });
+
+      layer.bindPopup(hoverContent(record));
+    }
+  });
+
+  selector.addEventListener('change', function() {
+    updateMap(this.value);
+  });
+
+  // Start with the first available variable
+  updateMap(selector.value);
 }
+"
 
-# ------------------------------------------
-# 6. ADD AGE GROUP LAYERS
-# LIGHTER YOUNGER / DARKER OLDER
-# ------------------------------------------
-
-age_palettes <- list(
-  "Age 0-17 (%)" = c("#F7FBFF", "#DEEBF7"),
-  "Age 18-39 (%)" = c("#DEEBF7", "#9ECAE1"),
-  "Age 40-64 (%)" = c("#9ECAE1", "#4292C6"),
-  "Age 65 and over (%)" = c("#4292C6", "#084594")
+# Insert data into JavaScript
+map_js <- sub(
+  "DATA_RECORDS",
+  as.character(records_json),
+  map_js,
+  fixed = TRUE
 )
 
-for (variable in age_variables) {
+map_js <- sub(
+  "VARIABLE_GROUPS",
+  as.character(groups_json),
+  map_js,
+  fixed = TRUE
+)
 
-  values <- illinois_gis[[variable]]
+map_js <- sub(
+  "DISPLAY_LABELS",
+  as.character(labels_json),
+  map_js,
+  fixed = TRUE
+)
 
-  age_palette <- colorNumeric(
-    palette = age_palettes[[variable]],
-    domain = values,
-    na.color = "transparent"
+map_js <- sub(
+  "PRIORITY_COLORS",
+  as.character(colors_json),
+  map_js,
+  fixed = TRUE
+)
+
+map_js <- sub(
+  "GEOGRAPHIC_FIELD",
+  as.character(geo_json),
+  map_js,
+  fixed = TRUE
+)
+
+map <- htmlwidgets::onRender(
+  map,
+  map_js
+)
+
+map <- htmlwidgets::prependContent(
+  map,
+  htmltools::tags$style(
+    htmltools::HTML(map_css)
   )
-
-  age_labels <- paste0(
-    illinois_gis$County,
-    " | Population: ",
-    illinois_gis$Population_Label,
-    " | ",
-    variable,
-    ": ",
-    ifelse(
-      is.na(values),
-      "Not available",
-      paste0(round(values, 1), "%")
-    )
-  )
-
-  illinois_map <- illinois_map %>%
-    addPolygons(
-      data = illinois_gis,
-      fillColor = age_palette(values),
-      fillOpacity = 0.8,
-      color = "#777777",
-      weight = 0.5,
-      group = variable,
-      label = age_labels,
-      highlightOptions = highlightOptions(
-        weight = 2,
-        color = "#222222",
-        bringToFront = TRUE
-      )
-    )
-}
-
-# ------------------------------------------
-# 7. ADD IPLAN TOP 3 PRIORITIES
-# ------------------------------------------
-
-if (length(missing_iplan) == 0) {
-
-  iplan_palette <- colorFactor(
-    palette = "Set3",
-    domain = illinois_gis[[iplan_cols[1]]],
-    na.color = "transparent"
-  )
-
-  illinois_map <- illinois_map %>%
-    addPolygons(
-      data = illinois_gis,
-      fillColor = iplan_palette(
-        illinois_gis[[iplan_cols[1]]]
-      ),
-      fillOpacity = 0.75,
-      color = "#777777",
-      weight = 0.5,
-      group = "IPLAN Top 3 Priorities",
-      label = paste0(
-        illinois_gis$County,
-        " | Population: ",
-        illinois_gis$Population_Label,
-        " | Top 3 IPLAN Priorities: ",
-        illinois_gis$IPLAN_Top_3
-      )
-    )
-}
-
-# ------------------------------------------
-# 8. ADD CHNA TOP 3 PRIORITIES
-# ------------------------------------------
-
-if (length(missing_chna) == 0) {
-
-  chna_palette <- colorFactor(
-    palette = "Set3",
-    domain = illinois_gis[[chna_cols[1]]],
-    na.color = "transparent"
-  )
-
-  illinois_map <- illinois_map %>%
-    addPolygons(
-      data = illinois_gis,
-      fillColor = chna_palette(
-        illinois_gis[[chna_cols[1]]]
-      ),
-      fillOpacity = 0.75,
-      color = "#777777",
-      weight = 0.5,
-      group = "CHNA Top 3 Priorities",
-      label = paste0(
-        illinois_gis$County,
-        " | Population: ",
-        illinois_gis$Population_Label,
-        " | Top 3 CHNA Priorities: ",
-        illinois_gis$CHNA_Top_3
-      )
-    )
-}
-
-# ------------------------------------------
-# 9. PERMANENT COUNTY BOUNDARIES
-# ------------------------------------------
-
-illinois_map <- illinois_map %>%
-  addPolygons(
-    data = illinois_gis,
-    fill = FALSE,
-    color = "#555555",
-    weight = 0.7,
-    opacity = 0.9
-  )
-
-# ------------------------------------------
-# 10. PERMANENT GEOGRAPHIC GROUP BOUNDARIES
-# ------------------------------------------
-
-illinois_map <- illinois_map %>%
-  addPolygons(
-    data = geographic_boundaries,
-    fill = FALSE,
-    color = ~group_colors(Geographic_Group),
-    weight = 2.5,
-    opacity = 0.95,
-    label = ~as.character(Geographic_Group)
-  )
-
-# ------------------------------------------
-# 11. GEOGRAPHIC GROUP LEGEND
-# ------------------------------------------
-
-illinois_map <- illinois_map %>%
-  addLegend(
-    position = "topright",
-    pal = group_colors,
-    values = geographic_boundaries$Geographic_Group,
-    title = "Geographic Groups",
-    opacity = 1
-  )
-
-# ------------------------------------------
-# 12. MAP SCALE
-# ------------------------------------------
-
-illinois_map <- illinois_map %>%
-  addScaleBar(
-    position = "bottomleft",
-    options = scaleBarOptions(
-      metric = TRUE,
-      imperial = FALSE,
-      maxWidth = 150
-    )
-  )
-
-# ------------------------------------------
-# 13. MAP TITLE
-# ------------------------------------------
-
-illinois_map <- illinois_map %>%
-  addControl(
-    html = HTML("
-      <div style='
-        background: white;
-        padding: 12px 18px;
-        border-radius: 6px;
-        box-shadow: 0 1px 5px rgba(0,0,0,0.25);
-        max-width: 330px;
-      '>
-        <h4 style='
-          margin: 0 0 5px 0;
-          color: #17324D;
-          font-weight: 600;
-        '>
-          Illinois County Health Indicators
-        </h4>
-        <div style='
-          font-size: 12px;
-          color: #555;
-        '>
-          Demographics, healthcare access, and
-          community health priorities
-        </div>
-      </div>
-    "),
-    position = "topleft"
-  )
-
-# ------------------------------------------
-# 14. LAYER CONTROLS
-# ------------------------------------------
-
-illinois_map <- illinois_map %>%
-  addLayersControl(
-    overlayGroups = c(
-      map_variables,
-      age_variables,
-      priority_layers
-    ),
-    options = layersControlOptions(
-      collapsed = TRUE,
-      position = "bottomright"
-    )
-  )
-
-# ------------------------------------------
-# 15. DISPLAY MAP
-# ------------------------------------------
-
-illinois_map
-
+)
 
 ```
 
-## Save
+## Save and open
 
 ```{r}
 
-# ------------------------------------------
-# 16. SAVE INTERACTIVE MAP AS HTML
-# ------------------------------------------
-
-library(htmlwidgets)
-
-# Create output folder
-dir.create(
-  "/Users/kmcdaniel/Desktop/apex/graph",
-  recursive = TRUE,
-  showWarnings = FALSE
+output_folder <- path.expand(
+  "~/Desktop/apex/graph"
 )
 
-# Export Leaflet map
+if (!dir.exists(output_folder)) {
+  dir.create(
+    output_folder,
+    recursive = TRUE
+  )
+}
+
+output_file <- file.path(
+  output_folder,
+  "Illinois_County_Health_Indicators.html"
+)
+
 htmlwidgets::saveWidget(
-  widget = illinois_map,
-  file = "/Users/kmcdaniel/Desktop/apex/graph/Illinois_County_Health_Indicators.html",
+  map,
+  file = output_file,
   selfcontained = TRUE
 )
+
+cat("Map saved to:", output_file, "\n")
+
+browseURL(output_file)
 
 ```

@@ -21,6 +21,7 @@ library(maps)
 library(sf)
 
 ```
+
 ## Import CHNA Data
 
 ```{r, chna-data}
@@ -28,6 +29,7 @@ library(sf)
 data <- readr::read_csv("data/chna.csv")
 
 ```
+
 ## Priorities
 
 ```{r, health-priorities}
@@ -211,4 +213,3 @@ ggsave(
 
 
 ```
-

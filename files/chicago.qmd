@@ -26,7 +26,7 @@ library(sf)
 cook_chicago_iplan <- readr::read_csv("data/cookchicagoiplan.csv")
 
 # Identify Chicago hospitals
-chicago_chna <- cook_chicago %>%
+chicago_chna <- data %>%
   filter(City == "Chicago") %>%
   mutate(Geographic_Group = "Chicago")
 

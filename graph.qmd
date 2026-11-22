@@ -28,7 +28,7 @@ Using hospital assessment data, local health department priorities, U.S. Census 
 ## First-Ranked Hospital CHNA Priorities Across Geographic Groups
 
 <iframe
-  src="website/chna.html"
+  src="chna.html"
   width="100%"
   height="700"
   style="border: none;">
@@ -41,7 +41,7 @@ Using hospital assessment data, local health department priorities, U.S. Census 
 ## First-Ranked County IPLAN Priorities Across Geographic Groups
 
 <iframe
-  src="website/iplan.html"
+  src="iplan.html"
   width="100%"
   height="700"
   style="border: none;">
@@ -53,7 +53,7 @@ Using hospital assessment data, local health department priorities, U.S. Census 
 
 ## Geographic Distribution of Hospital CHNA Priorities
 
-![](website/graph/chnas.png)
+![](graph/chnas.png)
 
 **Methods:** Hospital CHNA priorities were grouped by geographic location and standardized across ten health topic categories. The proportion of hospital assessments identifying each priority was calculated within each topic to examine its geographic distribution.
 
@@ -61,7 +61,7 @@ Using hospital assessment data, local health department priorities, U.S. Census 
 
 ## Geographic Distribution of County IPLAN Priorities
 
-![](website/graph/iplans.png)
+![](graph/iplans.png)
 
 **Methods:** County and Chicago IPLAN priorities were grouped into the five geographic classifications. The proportion of IPLAN assessments identifying each health topic was calculated to examine the geographic distribution of reported priorities.
 
@@ -69,7 +69,7 @@ Using hospital assessment data, local health department priorities, U.S. Census 
 
 ## Prevalence of Top Three Overall CHNA Health Priorities
 
-![](website/graph/chna3.png)
+![](graph/chna3.png)
 
 **Methods:** Three frequently identified hospital CHNA priorities were selected for comparison: Behavioral and Mental Health, Access to Care and Healthcare Equity, and Chronic Disease Management. The percentage of hospitals identifying each priority was calculated within each geographic group.
 
@@ -77,7 +77,7 @@ Using hospital assessment data, local health department priorities, U.S. Census 
 
 ## Prevalence of Top Three Overall IPLAN Health Priorities
 
-![](website/graph/iplan3.png)
+![](graph/iplan3.png)
 
 **Methods:** Three frequently identified IPLAN priorities were examined across geographic groups: Behavioral and Mental Health, Chronic Disease Management, and Healthy Behaviors and Wellness. The percentage of local health department assessments identifying each priority was calculated within each group.
 

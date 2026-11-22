@@ -27,7 +27,7 @@ A central focus of the project is examining alignment between hospital-identifie
 The accompanying report provides a detailed overview of the project background, data sources, methodology, analytical approach, and findings. It includes descriptive statistics, comparisons of hospital and public health priorities, geographic analyses, and socioeconomic comparisons.
 
 <iframe
-  src="website/report.pdf"
+  src="report.pdf"
   width="100%"
   height="650"
   style="border: 1px solid #ddd;"

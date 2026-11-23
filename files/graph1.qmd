@@ -1,0 +1,2015 @@
+---
+title: "join"
+format: html
+editor: visual
+---
+
+## Colors
+
+```{r}
+
+topic_colors<- c("Behavioral and Mental Health" = "#4E79A7",
+  "Access to Care and Healthcare Equity" = "#F28E2B",
+  "Chronic Disease Management" = "#E15759",
+  "Social Determinants of Health" = "#76B7B2",
+  "Healthy Behaviors and Wellness" = "#59A14F",
+  "Community Safety" = "#EDC948",
+  "Maternal, Infant, and Child Health" = "#B07AA1",
+  "Environmental Health" = "#FF9DA7",
+  "Injury Prevention and Safety" = "#9C755F",
+  "Healthcare Capacity" = "#BAB0AC"
+)
+
+```
+
+
+## Combine
+
+```{r. dataset_combine}
+
+# 1. Join data and data1 with CHNA and IPLAN labels
+final_merged <- full_join(
+  data,
+  data1,
+  by = "County",
+  suffix = c("_CHNA", "_IPLAN")
+)
+
+# 2. Create Geographic Group
+final_merged <- final_merged %>%
+  mutate(
+    Rurality = as.numeric(as.character(Rurality)),
+    Geographic_Group = case_when(
+      City == "Chicago" ~ "Chicago",
+      County == "Cook" ~ "Suburban Cook",
+      !is.na(Rurality) & Rurality >= 1 & Rurality <= 3 ~ "Urban Non-Cook",
+      !is.na(Rurality) & Rurality >= 4 & Rurality <= 6 ~ "Suburban Non-Cook",
+      !is.na(Rurality) & Rurality >= 7 & Rurality <= 10 ~ "Rural",
+      TRUE ~ NA_character_
+    )
+  )
+
+# 3. Check column names
+names(final_merged)
+
+```
+
+## CHNA Priorities
+
+```{r}
+
+# 1. Clean and summarize CHNA Priority 1 topics
+chna_top_priority_clean <- final_merged %>%
+  filter(
+    !is.na(`Priority 1_CHNA`),
+    `Priority 1_CHNA` != "",
+    !is.na(Geographic_Group)
+  ) %>%
+  mutate(
+    Topic = stringr::str_squish(`Priority 1_CHNA`)
+  ) %>%
+  group_by(Geographic_Group, Topic) %>%
+  summarise(n = n(), .groups = "drop") %>%
+  group_by(Geographic_Group) %>%
+  filter(n == max(n)) %>%
+  ungroup()
+
+# 2. Graph
+p_chna_top <- ggplot(
+  chna_top_priority_clean,
+  aes(x = Geographic_Group, y = n, fill = Topic)
+) +
+  geom_col(
+    width = 0.65,
+    color = "black",
+    linewidth = 0.3
+  ) +
+  geom_text(
+    aes(label = ifelse(n >= 3, n, "")),
+    position = position_stack(vjust = 0.5),
+    size = 3,
+    fontface = "bold"
+  ) +
+  scale_fill_manual(
+    values = topic_colors,
+    guide = guide_legend(
+      nrow = 3,
+      byrow = TRUE
+    )
+  ) +
+  scale_y_continuous(
+    breaks = scales::breaks_width(10),
+    expand = expansion(mult = c(0, 0.1))
+  ) +
+  scale_x_discrete(
+    expand = expansion(add = 0.5)
+  ) +
+  labs(
+    title = "Most Frequently Reported First-Ranked CHNA Priorities\nAcross Geographic Groups",
+    subtitle = "Hospital Community Health Needs Assessments (CHNAs)",
+    x = "Geographic Group",
+    y = "Number of Hospitals",
+    fill = "Top Health Priority"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(
+      face = "bold",
+      size = 11,
+      hjust = 0.5,
+      lineheight = 1.1
+    ),
+    plot.subtitle = element_text(size = 9, hjust = 0.5),
+    axis.title.x = element_text(size = 9, margin = margin(t = 10)),
+    axis.title.y = element_text(size = 9, margin = margin(r = 12)),
+    axis.text.x = element_text(angle = 30, hjust = 1, size = 8),
+    axis.text.y = element_text(size = 8),
+    axis.ticks.y = element_line(color = "black"),
+    panel.grid.major.y = element_line(color = "grey80", linewidth = 0.4),
+    panel.grid.minor.y = element_blank(),
+    panel.grid.major.x = element_blank(),
+    legend.position = "bottom",
+    legend.title = element_text(size = 8, face = "bold"),
+    legend.text = element_text(size = 7),
+    legend.key.size = unit(0.35, "cm"),
+    legend.spacing.x = unit(0.2, "cm"),
+    legend.box = "vertical",
+    plot.margin = margin(15, 20, 15, 20)
+  )
+
+p_chna_top
+
+```
+## Save
+
+```{r, save}
+
+# Save graph
+ggsave(
+  "graph/chna_top_first_priority.png",
+  p_chna_top,
+  width = 10,
+  height = 6,
+  dpi = 300
+)
+
+```
+
+## CHNA Leaflet
+
+```{r, chna_plotly}
+
+
+library(tidyverse)
+library(plotly)
+
+# 1. Geographic group order
+geo_order <- c(
+  "Chicago",
+  "Rural",
+  "Suburban Cook",
+  "Suburban Non-Cook",
+  "Urban Non-Cook"
+)
+
+# 2. Prepare all five CHNA priorities
+chna_priority_clean <- final_merged %>%
+  pivot_longer(
+    cols = all_of(paste0("Priority ", 1:5, "_CHNA")),
+    names_to = "Priority",
+    values_to = "Topic"
+  ) %>%
+  mutate(
+    Priority = str_extract(Priority, "[1-5]"),
+    Topic = str_squish(Topic),
+    Geographic_Group = as.character(Geographic_Group)
+  ) %>%
+  filter(
+    !is.na(Topic),
+    Topic != "",
+    !is.na(Geographic_Group)
+  ) %>%
+  group_by(Priority, Geographic_Group, Topic) %>%
+  summarise(n = n(), .groups = "drop") %>%
+  group_by(Priority, Geographic_Group) %>%
+  filter(n == max(n)) %>%
+  ungroup()
+
+# 3. Create a fixed topic color lookup
+all_topics <- unique(chna_priority_clean$Topic)
+
+topic_palette <- setNames(
+  topic_colors[all_topics],
+  all_topics
+)
+
+# 4. Build interactive graph
+p_chna_interactive <- plot_ly()
+
+for (i in 1:5) {
+
+  plot_data <- chna_priority_clean %>%
+    filter(Priority == as.character(i))
+
+  for (topic in all_topics) {
+
+    topic_data <- plot_data %>%
+      filter(Topic == topic)
+
+    # Include all geographic groups, even when count is zero
+    topic_data <- tibble(
+      Geographic_Group = geo_order
+    ) %>%
+      left_join(
+        topic_data %>%
+          select(Geographic_Group, n),
+        by = "Geographic_Group"
+      ) %>%
+      mutate(n = replace_na(n, 0))
+
+    p_chna_interactive <- p_chna_interactive %>%
+      add_trace(
+        data = topic_data,
+        x = ~Geographic_Group,
+        y = ~n,
+        type = "bar",
+        name = topic,
+        legendgroup = topic,
+        marker = list(
+          color = unname(topic_palette[topic]),
+          line = list(color = "black", width = 0.3)
+        ),
+        width = 0.65,
+        text = ~paste0(
+          "Geographic Group: ", Geographic_Group,
+          "<br>Health Priority: ", topic,
+          "<br>Number of Hospitals: ", n
+        ),
+        hovertemplate = "%{text}<extra></extra>",
+        visible = (i == 1),
+        showlegend = TRUE
+      )
+  }
+}
+
+# 5. Number of traces per priority
+traces_per_priority <- length(all_topics)
+
+# 6. Dropdown visibility
+visibility <- lapply(1:5, function(i) {
+  rep(
+    seq_len(5) == i,
+    each = traces_per_priority
+  )
+})
+
+# 7. Final layout
+p_chna_interactive <- p_chna_interactive %>%
+  layout(
+    barmode = "stack",
+
+    title = list(
+      text = "Most Frequently Reported First-Ranked CHNA Priorities<br>Across Geographic Groups",
+      x = 0.5,
+      font = list(size = 11)
+    ),
+
+    xaxis = list(
+      title = list(text = "Geographic Group"),
+      type = "category",
+      categoryorder = "array",
+      categoryarray = geo_order,
+      tickmode = "array",
+      tickvals = geo_order,
+      ticktext = geo_order,
+      tickangle = 30,
+      tickfont = list(size = 8)
+    ),
+
+    yaxis = list(
+      title = list(text = "Number of Hospitals"),
+      dtick = 10,
+      rangemode = "tozero"
+    ),
+
+    legend = list(
+      orientation = "h",
+      x = 0.5,
+      xanchor = "center",
+      y = -0.35,
+      title = list(text = "Top Health Priority"),
+      font = list(size = 7),
+      traceorder = "normal",
+      showlegend = TRUE
+    ),
+
+    margin = list(
+      l = 65,
+      r = 20,
+      t = 100,
+      b = 170
+    ),
+
+    updatemenus = list(
+      list(
+        type = "dropdown",
+        direction = "down",
+        x = 1,
+        xanchor = "right",
+        y = 1.2,
+        buttons = lapply(1:5, function(i) {
+          list(
+            method = "update",
+            args = list(
+              list(visible = visibility[[i]]),
+              list(
+                title = paste0(
+                  "Most Frequently Reported CHNA Priorities (Priority ",
+                  i,
+                  ")<br>Across Geographic Groups"
+                )
+              )
+            ),
+            label = paste("Priority", i)
+          )
+        })
+      )
+    )
+  )
+
+# 8. Display
+p_chna_interactive
+
+
+```
+
+## Save
+
+```{r, save}
+
+htmlwidgets::saveWidget(
+  p_chna_interactive,
+  "~/Desktop/apex/chna.html",
+  selfcontained = TRUE
+)
+
+```
+
+## IPLAN Priorities
+
+
+```{r, iplan-plotly}
+
+library(tidyverse)
+library(plotly)
+
+# Geographic group order
+geo_order <- c(
+  "Chicago",
+  "Rural",
+  "Suburban Cook",
+  "Suburban Non-Cook",
+  "Urban Non-Cook"
+)
+
+# Prepare all five IPLAN priorities
+iplan_priority_clean <- iplan_combined %>%
+  pivot_longer(
+    cols = all_of(paste0("Priority ", 1:5)),
+    names_to = "Priority",
+    values_to = "Topic"
+  ) %>%
+  mutate(
+    Topic = stringr::str_squish(Topic),
+    Priority = stringr::str_extract(Priority, "[1-5]")
+  ) %>%
+  filter(
+    !is.na(Topic),
+    Topic != "",
+    !is.na(Geographic_Group)
+  ) %>%
+  group_by(Priority, Geographic_Group, Topic) %>%
+  summarise(n = n(), .groups = "drop") %>%
+  group_by(Priority, Geographic_Group) %>%
+  filter(n == max(n)) %>%
+  ungroup()
+
+# Get all topics and matching colors
+all_topics <- names(topic_colors)
+topic_palette <- topic_colors
+
+# Check for IPLAN topics without an assigned color
+setdiff(all_topics, names(topic_palette))
+
+# Create interactive Plotly graph
+p_iplan <- plot_ly()
+
+for (i in 1:5) {
+
+  plot_data <- iplan_priority_clean %>%
+    filter(Priority == as.character(i))
+
+  for (topic in all_topics) {
+
+    topic_data <- tibble(
+      Geographic_Group = geo_order
+    ) %>%
+      left_join(
+        plot_data %>%
+          filter(Topic == topic) %>%
+          select(Geographic_Group, n),
+        by = "Geographic_Group"
+      ) %>%
+      mutate(n = replace_na(n, 0))
+
+    p_iplan <- p_iplan %>%
+      add_trace(
+        data = topic_data,
+        x = ~Geographic_Group,
+        y = ~n,
+        type = "bar",
+        name = topic,
+        legendgroup = topic,
+        marker = list(
+          color = unname(topic_palette[topic]),
+          line = list(color = "black", width = 0.3)
+        ),
+        width = 0.65,
+        text = ~paste0(
+          "Geographic Group: ", Geographic_Group,
+          "<br>Health Priority: ", topic,
+          "<br>Number of IPLAN Assessments: ", n
+        ),
+        hovertemplate = "%{text}<extra></extra>",
+        visible = (i == 1),
+        showlegend = TRUE
+      )
+  }
+}
+
+# Dropdown visibility
+traces_per_priority <- length(all_topics)
+
+visibility <- lapply(1:5, function(i) {
+  rep(seq_len(5) == i, each = traces_per_priority)
+})
+
+# Graph formatting
+p_iplan <- p_iplan %>%
+  layout(
+    title = list(
+      text = paste(
+        "Most Frequently Reported IPLAN Priorities",
+        "Across Geographic Groups",
+        sep = "<br>"
+      ),
+      x = 0.5,
+      font = list(size = 16)
+    ),
+
+    barmode = "stack",
+    
+  xaxis = list(
+  title = list(text = "Geographic Group", standoff = 15),
+  type = "category",
+  categoryorder = "array",
+  categoryarray = geo_order,
+  tickmode = "array",
+  tickvals = geo_order,
+  ticktext = geo_order,
+  tickangle = 20,
+  tickfont = list(size = 10),
+  showgrid = FALSE,
+  automargin = TRUE
+),
+
+  yaxis = list(
+      title = list(text = "Number of Hospitals", standoff = 15),
+      dtick = 10,
+      rangemode = "tozero"
+    ),
+
+  legend = list(
+      orientation = "h",
+      x = 0.5,
+      xanchor = "center",
+      y = -0.35,
+      title = list(text = "Top Health Priority"),
+      font = list(size = 7),
+      traceorder = "normal"
+    ),
+
+margin = list(
+  l = 70,
+  r = 30,
+  t = 110,
+  b = 230
+),
+    updatemenus = list(
+      list(
+        type = "dropdown",
+        direction = "down",
+        x = 1,
+        xanchor = "right",
+        y = 1.18,
+        buttons = lapply(1:5, function(i) {
+          list(
+            method = "update",
+            args = list(
+              list(visible = visibility[[i]]),
+              list(
+                title = list(
+                  text = paste(
+                    "Most Frequently Reported Priority", i,
+                    "IPLAN Priorities Across Geographic Groups",
+                    sep = "<br>"
+                  )
+                )
+              )
+            ),
+            label = paste("Priority", i)
+          )
+        })
+      )
+    ),
+
+    plot_bgcolor = "white",
+    paper_bgcolor = "white",
+
+    margin = list(
+      l = 70,
+      r = 30,
+      t = 110,
+      b = 170
+    )
+  )
+
+p_iplan
+
+```
+
+## Save
+
+```{r}
+
+htmlwidgets::saveWidget(
+  p_iplan,
+  "~/Desktop/apex/_site/docs/iplan.html",
+  selfcontained = TRUE
+)
+
+```
+
+
+## CHNA Stacked
+
+```{r}
+
+# 1. Calculate counts
+chna_counts <- final_merged %>%
+  pivot_longer(
+    cols = starts_with("Priority"),
+    names_to = "Priority_Rank",
+    values_to = "Topic"
+  ) %>%
+  mutate(
+    Topic = str_squish(as.character(Topic)),
+    Geographic_Group = str_squish(as.character(Geographic_Group))
+  ) %>%
+  filter(
+    !is.na(Topic),
+    Topic != "",
+    !is.na(Geographic_Group),
+    Geographic_Group != ""
+  ) %>%
+  distinct(`Hospital ID`, Geographic_Group, Topic) %>%
+  count(Topic, Geographic_Group, name = "Count")
+
+# 2. Calculate total counts per topic
+topic_totals <- chna_counts %>%
+  group_by(Topic) %>%
+  summarise(Total_Count = sum(Count), .groups = "drop")
+
+# 3. Calculate percentages and order factors
+chna_percent <- chna_counts %>%
+  left_join(topic_totals, by = "Topic") %>%
+  group_by(Topic) %>%
+  mutate(Percentage = Count / sum(Count) * 100) %>%
+  ungroup() %>%
+  mutate(
+    Topic = reorder(Topic, Total_Count),
+    Geographic_Group = factor(
+      Geographic_Group,
+      levels = c(
+        "Chicago",
+        "Suburban Cook",
+        "Suburban Non-Cook",
+        "Urban Non-Cook",
+        "Rural"
+      )
+    )
+  ) %>%
+  filter(!is.na(Geographic_Group))
+
+# 4. Create graph
+chna_stacked_plot <- ggplot(
+  chna_percent,
+  aes(x = Topic, y = Percentage, fill = Geographic_Group)
+) +
+  geom_col(
+    position = position_stack(reverse = TRUE),
+    color = "black",
+    linewidth = 0.3,
+    width = 0.65,
+    alpha = 0.85
+  ) +
+  coord_flip() +
+  scale_fill_manual(
+     values = c(
+  "Chicago" = "#6A3D9A",             # Purple
+  "Suburban Cook" = "#FF7F00",       # Orange
+  "Suburban Non-Cook" = "#A6CEE3",   # Light blue
+  "Urban Non-Cook" = "#33A02C",      # Green
+  "Rural" = "#B15928"                # Brown
+    ),,
+    breaks = c(
+      "Chicago",
+      "Suburban Cook",
+      "Suburban Non-Cook",
+      "Urban Non-Cook",
+      "Rural"
+    ),
+    drop = FALSE,
+    guide = guide_legend(
+      reverse = TRUE,
+      nrow = 1,
+      byrow = TRUE
+    )
+  ) +
+  scale_y_continuous(
+    breaks = seq(0, 100, 20),
+    labels = function(x) paste0(x, "%"),
+    limits = c(0, 100),
+    expand = expansion(mult = c(0, 0.05))
+  ) +
+  labs(
+    title = "Geographic Distribution of Hospital CHNA Priorities",
+    subtitle = "Hospital Community Health Needs Assessments (CHNAs)",
+    x = "Health Priority",
+    y = "Percentage of Hospital Assessments",
+    fill = "Geographic Location",
+    caption = str_wrap(
+      "Note: Each bar represents 100% of hospital assessments identifying that priority. Geographic sections represent the distribution across the five geographic groups. Hospitals are counted once per health priority.",
+      width = 95
+    )
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(
+      face = "bold",
+      size = 11,
+      hjust = 0.5,
+      lineheight = 1.1
+    ),
+    plot.subtitle = element_text(size = 9, hjust = 0.5),
+    axis.title.x = element_text(size = 9, margin = margin(t = 10)),
+    axis.title.y = element_text(size = 9, margin = margin(r = 12)),
+    axis.text.x = element_text(size = 8),
+    axis.text.y = element_text(size = 8),
+    axis.ticks.x = element_line(color = "black"),
+    panel.grid.major.x = element_line(color = "grey80", linewidth = 0.4),
+    panel.grid.minor.x = element_blank(),
+    panel.grid.major.y = element_blank(),
+    legend.position = "bottom",
+    legend.title = element_text(size = 7.5, face = "bold"),
+    legend.direction = "vertical",
+legend.box = "vertical",
+legend.justification = "center",
+    legend.text = element_text(size = 6.5),
+    legend.key.size = unit(0.28, "cm"),
+    legend.spacing.x = unit(0.15, "cm"),
+    plot.caption = element_text(
+      size = 7,
+      hjust = 0,
+      color = "grey35",
+      lineheight = 1.2,
+      margin = margin(t = 12)
+    ),
+    plot.margin = margin(15, 20, 15, 20)
+  )
+
+chna_stacked_plot
+
+```
+## IPLAN Stacked
+
+```{r}
+
+iplan_counts <- final_merged %>%
+  pivot_longer(
+    cols = starts_with("Priority"),
+    names_to = "Priority_Rank",
+    values_to = "Topic"
+  ) %>%
+  mutate(
+    Topic = str_squish(as.character(Topic)),
+    Geographic_Group = str_squish(as.character(Geographic_Group))
+  ) %>%
+  filter(
+    !is.na(Topic),
+    Topic != "",
+    !is.na(Geographic_Group),
+    Geographic_Group != ""
+  ) %>%
+  distinct(`County`, Geographic_Group, Topic) %>%
+  count(Topic, Geographic_Group, name = "Count")
+
+# 2. Calculate total counts per topic
+iplan_topic_totals <- iplan_counts %>%
+  group_by(Topic) %>%
+  summarise(Total_Count = sum(Count), .groups = "drop")
+
+# 3. Calculate percentages and order factors
+iplan_percent <- iplan_counts %>%
+  left_join(iplan_topic_totals, by = "Topic") %>%
+  group_by(Topic) %>%
+  mutate(Percentage = Count / sum(Count) * 100) %>%
+  ungroup() %>%
+  mutate(
+    Topic = reorder(Topic, Total_Count),
+    Geographic_Group = factor(
+      Geographic_Group,
+      levels = c(
+        "Chicago",
+        "Suburban Cook",
+        "Suburban Non-Cook",
+        "Urban Non-Cook",
+        "Rural"
+      )
+    )
+  ) %>%
+  filter(!is.na(Geographic_Group))
+
+# 4. Create graph
+iplan_stacked_plot <- ggplot(
+  iplan_percent,
+  aes(x = Topic, y = Percentage, fill = Geographic_Group)
+) +
+  geom_col(
+    position = position_stack(reverse = TRUE),
+    color = "black",
+    linewidth = 0.3,
+    width = 0.65,
+    alpha = 0.85
+  ) +
+  coord_flip() +
+  scale_fill_manual(
+    values = c(
+  "Chicago" = "#6A3D9A",             # Purple
+  "Suburban Cook" = "#FF7F00",       # Orange
+  "Suburban Non-Cook" = "#A6CEE3",   # Light blue
+  "Urban Non-Cook" = "#33A02C",      # Green
+  "Rural" = "#B15928"                # Brown
+    ),
+    breaks = c(
+      "Chicago",
+      "Suburban Cook",
+      "Suburban Non-Cook",
+      "Urban Non-Cook",
+      "Rural"
+    ),
+    drop = FALSE,
+    guide = guide_legend(
+      reverse = TRUE,
+      nrow = 1,
+      byrow = TRUE
+    )
+  ) +
+  scale_y_continuous(
+    breaks = seq(0, 100, 20),
+    labels = function(x) paste0(x, "%"),
+    limits = c(0, 100),
+    expand = expansion(mult = c(0, 0.05))
+  ) +
+  labs(
+    title = "Geographic Distribution of County IPLAN Priorities",
+    subtitle = "County and Chicago IPLAN Assessments",
+    x = "Health Priority",
+    y = "Percentage of IPLAN Assessments",
+    fill = "Geographic Location",
+    caption = str_wrap(
+      "Note: Each bar represents 100% of IPLAN assessments identifying that priority. Geographic sections represent the distribution across the five geographic groups. Counties are counted once per health priority.",
+      width = 95
+    )
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(
+      face = "bold",
+      size = 11,
+      hjust = 0.5,
+      lineheight = 1.1
+    ),
+    plot.subtitle = element_text(size = 9, hjust = 0.5),
+    axis.title.x = element_text(size = 9, margin = margin(t = 10)),
+    axis.title.y = element_text(size = 9, margin = margin(r = 12)),
+    axis.text.x = element_text(size = 8),
+    axis.text.y = element_text(size = 8),
+    axis.ticks.x = element_line(color = "black"),
+    panel.grid.major.x = element_line(color = "grey80", linewidth = 0.4),
+    panel.grid.minor.x = element_blank(),
+    panel.grid.major.y = element_blank(),
+    legend.position = "bottom",
+    legend.direction = "vertical",
+    legend.justification = "center",
+    legend.title = element_text(size = 7.5, face = "bold"),
+    legend.text = element_text(size = 6.5),
+    legend.key.size = unit(0.28, "cm"),
+    legend.spacing.x = unit(0.15, "cm"),
+    legend.box = "vertical",
+    plot.caption = element_text(
+      size = 7,
+      hjust = 0,
+      color = "grey35",
+      lineheight = 1.2,
+      margin = margin(t = 12)
+    ),
+    plot.margin = margin(15, 20, 15, 20)
+  )
+
+iplan_stacked_plot
+
+```
+## CHNA
+
+```{r}
+
+# 1. Calculate CHNA priority counts by geographic group
+chna_counts <- final_merged %>%
+  pivot_longer(
+    cols = starts_with("Priority") & ends_with("_CHNA"),
+    names_to = "Priority_Rank",
+    values_to = "Topic"
+  ) %>%
+  mutate(
+    Topic = str_squish(as.character(Topic)),
+    Geographic_Group = str_squish(as.character(Geographic_Group))
+  ) %>%
+  filter(
+    !is.na(Topic), Topic != "",
+    !is.na(Geographic_Group), Geographic_Group != ""
+  ) %>%
+  distinct(`Hospital ID`, Geographic_Group, Topic) %>%
+  count(Topic, Geographic_Group, name = "Count")
+
+# 2. Identify the top three overall CHNA priorities
+chna_top3 <- chna_counts %>%
+  group_by(Topic) %>%
+  summarise(Total_Count = sum(Count), .groups = "drop") %>%
+  slice_max(Total_Count, n = 3, with_ties = TRUE) %>%
+  pull(Topic)
+
+# 3. Calculate total hospitals per geographic group
+chna_totals <- final_merged %>%
+  filter(!is.na(Geographic_Group), Geographic_Group != "") %>%
+  distinct(`Hospital ID`, Geographic_Group) %>%
+  count(Geographic_Group, name = "Total")
+
+# 4. Complete geographic group combinations
+chna_top3_data <- chna_counts %>%
+  filter(Topic %in% chna_top3) %>%
+  complete(
+    Topic,
+    Geographic_Group = c(
+      "Chicago",
+      "Suburban Cook",
+      "Suburban Non-Cook",
+      "Urban Non-Cook",
+      "Rural"
+    ),
+    fill = list(Count = 0)
+  ) %>%
+  left_join(chna_totals, by = "Geographic_Group") %>%
+  mutate(
+    Percentage = if_else(
+      !is.na(Total) & Total > 0,
+      Count / Total * 100,
+      0
+    ),
+    Geographic_Group = factor(
+      Geographic_Group,
+      levels = c(
+        "Chicago",
+        "Suburban Cook",
+        "Suburban Non-Cook",
+        "Urban Non-Cook",
+        "Rural"
+      )
+    )
+  )
+
+# 5. Geographic colors
+group_colors <- c(
+  "Chicago" = "#6A3D9A",             # Purple
+  "Suburban Cook" = "#FF7F00",       # Orange
+  "Suburban Non-Cook" = "#A6CEE3",   # Light blue
+  "Urban Non-Cook" = "#33A02C",      # Green
+  "Rural" = "#B15928"                # Brown
+)
+
+# 6. Create horizontal grouped bar graph
+chna_top3_plot <- ggplot(
+  chna_top3_data,
+  aes(
+    x = reorder(Topic, Percentage),
+    y = Percentage,
+    fill = Geographic_Group
+  )
+) +
+  geom_col(
+    position = position_dodge(width = 0.8),
+    width = 0.7,
+    color = "black",
+    linewidth = 0.3,
+    alpha = 0.85
+  ) +
+  geom_text(
+    aes(label = paste0(round(Percentage, 1), "%")),
+    position = position_dodge(width = 0.8),
+    hjust = -0.15,
+    size = 3
+  ) +
+  coord_flip(clip = "off") +
+  scale_fill_manual(
+    values = group_colors,
+    drop = FALSE,
+    guide = guide_legend(
+      nrow = 1,
+      byrow = TRUE
+    )
+  ) +
+  scale_y_continuous(
+    breaks = seq(0, 100, 20),
+    labels = function(x) paste0(x, "%"),
+    limits = c(0, 100),
+    expand = expansion(mult = c(0, 0.15))
+  ) +
+  labs(
+    title = "Prevalence of Top Three Overall CHNA Priorities",
+    subtitle = "Comparison Across Geographic Groups",
+    x = "Health Priority",
+    y = "Percentage of Hospitals",
+    fill = "Geographic Group",
+    caption = str_wrap(
+      "Note: Percentages represent the proportion of hospitals within each geographic group identifying each priority. Each hospital is counted once per topic.",
+      width = 95
+    )
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(
+      face = "bold",
+      size = 11,
+      hjust = 0.5
+    ),
+    plot.subtitle = element_text(
+      size = 9,
+      hjust = 0.5
+    ),
+    axis.title = element_text(size = 9),
+    axis.text = element_text(size = 8),
+    axis.ticks.x = element_line(color = "black"),
+    panel.grid.major.x = element_line(
+      color = "grey80",
+      linewidth = 0.4
+    ),
+    panel.grid.minor.x = element_blank(),
+    panel.grid.major.y = element_blank(),
+    legend.position = "bottom",
+    legend.direction = "vertical",
+    legend.justification = "center",
+    legend.title = element_text(size = 7.5, face = "bold"),
+    legend.text = element_text(size = 6.5),
+    legend.key.size = unit(0.28, "cm"),
+    plot.caption = element_text(
+      size = 7,
+      hjust = 0,
+      color = "grey35",
+      lineheight = 1.2,
+      margin = margin(t = 12)
+    ),
+    plot.margin = margin(15, 30, 15, 20)
+  )
+
+# Display graph
+chna_top3_plot
+
+
+```
+
+## IPLAN
+
+```{r}
+
+# 1. Calculate IPLAN priority counts by geographic group
+iplan_counts <- final_merged %>%
+  pivot_longer(
+    cols = starts_with("Priority") & ends_with("_IPLAN"),
+    names_to = "Priority_Rank",
+    values_to = "Topic"
+  ) %>%
+  mutate(
+    Topic = str_squish(as.character(Topic)),
+    Geographic_Group = str_squish(as.character(Geographic_Group))
+  ) %>%
+  filter(
+    !is.na(Topic), Topic != "",
+    !is.na(Geographic_Group), Geographic_Group != ""
+  ) %>%
+  distinct(County, Geographic_Group, Topic) %>%
+  count(Topic, Geographic_Group, name = "Count")
+
+# 2. Identify top three overall IPLAN priorities
+iplan_top3 <- iplan_counts %>%
+  group_by(Topic) %>%
+  summarise(Total_Count = sum(Count), .groups = "drop") %>%
+  slice_max(Total_Count, n = 3, with_ties = TRUE) %>%
+  pull(Topic)
+
+# 3. Calculate total counties per geographic group
+iplan_totals <- final_merged %>%
+  filter(
+    !is.na(Geographic_Group),
+    Geographic_Group != "",
+    !is.na(County)
+  ) %>%
+  distinct(County, Geographic_Group) %>%
+  count(Geographic_Group, name = "Total")
+
+# 4. Complete geographic group combinations
+iplan_top3_data <- iplan_counts %>%
+  filter(Topic %in% iplan_top3) %>%
+  complete(
+    Topic,
+    Geographic_Group = c(
+      "Chicago",
+      "Suburban Cook",
+      "Suburban Non-Cook",
+      "Urban Non-Cook",
+      "Rural"
+    ),
+    fill = list(Count = 0)
+  ) %>%
+  left_join(iplan_totals, by = "Geographic_Group") %>%
+  mutate(
+    Percentage = if_else(
+      !is.na(Total) & Total > 0,
+      Count / Total * 100,
+      0
+    ),
+    Geographic_Group = factor(
+      Geographic_Group,
+      levels = c(
+        "Chicago",
+        "Suburban Cook",
+        "Suburban Non-Cook",
+        "Urban Non-Cook",
+        "Rural"
+      )
+    )
+  )
+
+# 5. Geographic colors
+group_colors <- c(
+  "Chicago" = "#6A3D9A",             # Purple
+  "Suburban Cook" = "#FF7F00",       # Orange
+  "Suburban Non-Cook" = "#A6CEE3",   # Light blue
+  "Urban Non-Cook" = "#33A02C",      # Green
+  "Rural" = "#B15928"                # Brown
+)
+
+# 6. Create horizontal grouped bar graph
+iplan_top3_plot <- ggplot(
+  iplan_top3_data,
+  aes(
+    x = reorder(Topic, Percentage),
+    y = Percentage,
+    fill = Geographic_Group
+  )
+) +
+  geom_col(
+    position = position_dodge(width = 0.8),
+    width = 0.7,
+    color = "black",
+    linewidth = 0.3,
+    alpha = 0.85
+  ) +
+  geom_text(
+    aes(label = paste0(round(Percentage, 1), "%")),
+    position = position_dodge(width = 0.8),
+    hjust = -0.15,
+    size = 3
+  ) +
+  coord_flip(clip = "off") +
+  scale_fill_manual(
+    values = group_colors,
+    drop = FALSE,
+    guide = guide_legend(
+      nrow = 1,
+      byrow = TRUE
+    )
+  ) +
+  scale_y_continuous(
+    breaks = seq(0, 100, 20),
+    labels = function(x) paste0(x, "%"),
+    limits = c(0, 100),
+    expand = expansion(mult = c(0, 0.15))
+  ) +
+  labs(
+    title = "Prevalence of Top Three Overall IPLAN Priorities",
+    subtitle = "Comparison Across Geographic Groups",
+    x = "Health Priority",
+    y = "Percentage of Counties",
+    fill = "Geographic Group",
+    caption = str_wrap(
+      "Note: Percentages represent the proportion of counties within each geographic group whose representative Local Health Department (LHD) identified each priority. Each county is counted once per topic, with priorities derived from its corresponding LHD assessment.",
+      width = 95
+    )
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(
+      face = "bold",
+      size = 11,
+      hjust = 0.5
+    ),
+    plot.subtitle = element_text(
+      size = 9,
+      hjust = 0.5
+    ),
+    axis.title = element_text(size = 9),
+    axis.text = element_text(size = 8),
+    axis.ticks.x = element_line(color = "black"),
+    panel.grid.major.x = element_line(
+      color = "grey80",
+      linewidth = 0.4
+    ),
+    panel.grid.minor.x = element_blank(),
+    panel.grid.major.y = element_blank(),
+    legend.position = "bottom",
+    legend.direction = "vertical",
+    legend.justification = "center",
+    legend.title = element_text(size = 7.5, face = "bold"),
+    legend.text = element_text(size = 6.5),
+    legend.key.size = unit(0.28, "cm"),
+    plot.caption = element_text(
+      size = 7,
+      hjust = 0,
+      color = "grey35",
+      lineheight = 1.2,
+      margin = margin(t = 12)
+    ),
+    plot.margin = margin(15, 30, 15, 20)
+  )
+
+# Display graph
+iplan_top3_plot
+
+```
+```{r}
+
+# Save CHNA stacked priority graph
+ggsave(
+  "graph/chna_stacked_priorities.png",
+  chna_stacked_plot,
+  width = 10,
+  height = 6,
+  dpi = 300
+)
+
+# Save IPLAN stacked priority graph
+ggsave(
+  "graph/iplan_stacked_priorities.png",
+  iplan_stacked_plot,
+  width = 10,
+  height = 6,
+  dpi = 300
+)
+
+# Save CHNA Option 2 top three graph
+ggsave(
+  "graph/chna_option2_top3.png",
+  chna_top3_plot,
+  width = 10,
+  height = 6,
+  dpi = 300
+)
+
+# Save IPLAN Option 2 top three graph
+ggsave(
+  "graph/iplan_option2_top3.png",
+  iplan_top3_plot,
+  width = 10,
+  height = 6,
+  dpi = 300
+)
+
+```
+
+## Cook vs. Chicago
+
+```{r}
+
+library(tidyverse)
+library(scales)
+
+# 1. CHNA: Count unique hospitals identifying each priority for Chicago and Suburban Cook
+chna_cook_chicago <- final_merged %>%
+  filter(Geographic_Group %in% c("Chicago", "Suburban Cook")) %>%
+  pivot_longer(
+    cols = starts_with("Priority") & ends_with("_CHNA"),
+    names_to = "Priority_Rank",
+    values_to = "Topic"
+  ) %>%
+  mutate(
+    Topic = str_squish(as.character(Topic)),
+    # Keep it as "Suburban Cook" to match your data
+    Geographic_Group = recode(
+      Geographic_Group,
+      "Suburban Cook" = "Suburban Cook",
+      "Chicago" = "Chicago"
+    )
+  ) %>%
+  filter(!is.na(Topic), Topic != "") %>%
+  distinct(`Hospital ID`, Geographic_Group, Topic) %>%
+  count(Topic, Geographic_Group, name = "Count") %>%
+  mutate(Source = paste(Geographic_Group, "CHNA")) # Becomes "Suburban Cook CHNA" and "Chicago CHNA"
+
+# CHNA denominators: unique hospitals in each geographic group
+chna_denominators <- final_merged %>%
+  filter(Geographic_Group %in% c("Chicago", "Suburban Cook")) %>%
+  mutate(
+    Geographic_Group = recode(
+      Geographic_Group,
+      "Suburban Cook" = "Suburban Cook",
+      "Chicago" = "Chicago"
+    )
+  ) %>%
+  distinct(`Hospital ID`, Geographic_Group) %>%
+  count(Geographic_Group, name = "Total")
+
+# Calculate percentages and order topics by total sum
+chna_cook_chicago <- chna_cook_chicago %>%
+  left_join(chna_denominators, by = "Geographic_Group") %>%
+  mutate(
+    Percentage = (Count / Total) * 100,
+    Percentage = replace_na(Percentage, 0),
+    Topic = fct_reorder(Topic, Percentage, .fun = sum, .desc = FALSE)
+  )
+
+# 2. Polished Graph (CHNA Only: Suburban Cook vs. Chicago)
+chna_cook_chicago_plot <- chna_cook_chicago %>%
+  ggplot(aes(x = Topic, y = Percentage, fill = Source)) +
+  geom_col(position = position_dodge(width = 0.8), width = 0.7) +
+  geom_text(
+    aes(label = sprintf("%.1f%%", Percentage)),
+    position = position_dodge(width = 0.8),
+    hjust = -0.15,
+    size = 3
+  ) +
+  coord_flip() +
+  scale_x_discrete(labels = label_wrap(38)) +
+  scale_y_continuous(
+    limits = c(0, 115),
+    breaks = seq(0, 100, 20),
+    labels = function(x) paste0(x, "%"),
+    expand = c(0, 0)
+  ) +
+  scale_fill_manual(values = c(
+    "Chicago CHNA" = "#7FA9B1",
+    "Suburban Cook CHNA" = "#4A777A"
+  )) +
+  labs(
+    title = "Hospital CHNA Health Priorities: Suburban Cook vs. Chicago",
+    subtitle = "Percentage of hospitals identifying each priority",
+    x = "Health Priority",
+    y = "Percentage of Hospitals",
+    fill = NULL,
+    caption = "Note: Percentages represent the proportion of unique hospitals within Suburban Cook or Chicago identifying each priority."
+  ) +
+  guides(fill = guide_legend(nrow = 1, reverse = TRUE)) +
+  theme_minimal(base_size = 12) +
+  theme(
+    plot.title.position = "plot",
+    plot.caption.position = "plot",
+    plot.title = element_text(face = "bold", size = 14, margin = margin(b = 4)),
+    plot.subtitle = element_text(size = 11, color = "gray30", margin = margin(b = 10)),
+    plot.caption = element_text(hjust = 0, size = 8.5, color = "gray40", margin = margin(t = 12)),
+    axis.text.y = element_text(size = 10.5, color = "black"),
+    legend.position = "top",
+    legend.justification = "left",
+    legend.text = element_text(size = 9.5),
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor = element_blank(),
+    plot.margin = margin(15, 20, 15, 15)
+  )
+
+# Display the plot
+chna_cook_chicago_plot
+
+```
+# IPLAN Cook vs Chicago
+
+```{r}
+
+# 1. Extract Suburban Cook County priorities
+cook_priorities <- final_merged %>%
+  filter(County == "Cook") %>%
+  select(
+    `Priority 1_IPLAN`,
+    `Priority 2_IPLAN`,
+    `Priority 3_IPLAN`,
+    `Priority 4_IPLAN`,
+    `Priority 5_IPLAN`
+  ) %>%
+  slice(1) %>%
+  mutate(Area = "Suburban Cook")
+
+
+# 2. Extract Chicago priorities from separate dataset
+chicago_priorities <- chicago_iplan %>%
+  select(
+    `Priority 1_IPLAN` = `Priority 1`,
+    `Priority 2_IPLAN` = `Priority 2`,
+    `Priority 3_IPLAN` = `Priority 3`,
+    `Priority 4_IPLAN` = `Priority 4`,
+    `Priority 5_IPLAN` = `Priority 5`
+  ) %>%
+  slice(1) %>%
+  mutate(Area = "Chicago")
+
+
+# 3. Combine both datasets
+cook_chicago <- bind_rows(
+  cook_priorities,
+  chicago_priorities
+) %>%
+  pivot_longer(
+    cols = starts_with("Priority"),
+    names_to = "Priority_Rank",
+    values_to = "Topic"
+  ) %>%
+  filter(!is.na(Topic), Topic != "") %>%
+  mutate(
+    Priority_Rank = factor(
+      Priority_Rank,
+      levels = paste0("Priority ", 1:5, "_IPLAN"),
+      labels = paste("Priority", 1:5)
+    )
+  )
+
+
+# 4. Create comparison graph
+cook_chicago_plot <- ggplot(
+  cook_chicago,
+  aes(
+    x = Area,
+    y = Priority_Rank,
+    fill = Topic
+  )
+) +
+  geom_tile(
+    color = "white",
+    linewidth = 1.5,
+    width = 0.85,
+    height = 0.85
+  ) +
+  geom_text(
+    aes(label = stringr::str_wrap(Topic, width = 22)),
+    size = 3.2,
+    fontface = "bold",
+    lineheight = 0.95
+  ) +
+  scale_fill_manual(values = topic_colors) +
+  scale_y_discrete(
+    limits = rev(levels(cook_chicago$Priority_Rank))
+  ) +
+  labs(
+    title = "Comparison of Chicago and Suburban Cook County IPLAN Priorities",
+    subtitle = "Community health priorities displayed in order of selection",
+    x = NULL,
+    y = NULL
+  ) +
+  theme_minimal(base_size = 11) +
+  theme(
+    plot.title = element_text(face = "bold", size = 14),
+    legend.position = "none",
+    panel.grid = element_blank(),
+    axis.text.x = element_text(face = "bold", size = 11),
+    axis.text.y = element_text(face = "bold")
+  )
+
+cook_chicago_plot
+
+
+```
+
+```{r}
+
+# Save IPLAN Option 2 top three graph
+ggsave(
+  "graph/cookchi.png",
+  cook_chicago_plot,
+  width = 10,
+  height = 6,
+  dpi = 300
+)
+
+
+```
+
+## Age across Iplan
+
+```{r}
+
+
+# 1. Identify the top 3 Priority 1 health topics
+top3_priorities <- final_merged %>%
+  count(`Priority 1_IPLAN`, sort = TRUE) %>%
+  slice_head(n = 3) %>%
+  pull(`Priority 1_IPLAN`)
+
+# 2. Filter to the top 3 priorities and calculate age distribution
+age_data <- final_merged %>%
+  filter(`Priority 1_IPLAN` %in% top3_priorities) %>%
+  pivot_longer(
+    cols = c(
+      `Age 0-17`,
+      `Age 18-39`,
+      `Age 40-64`,
+      `Age 65 and over`
+    ),
+    names_to = "Age_Group",
+    values_to = "Population_Count"
+  ) %>%
+  group_by(`Priority 1_IPLAN`, Age_Group) %>%
+  summarise(
+    Population_Count = sum(Population_Count, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  group_by(`Priority 1_IPLAN`) %>%
+  mutate(
+    Percentage = Population_Count / sum(Population_Count) * 100
+  ) %>%
+  ungroup()
+
+# 3. Create graph
+age_plot <- ggplot(
+  age_data,
+  aes(x = `Priority 1_IPLAN`, y = Percentage, fill = Age_Group)
+) +
+  geom_col(width = 0.75) +
+  coord_flip() +
+  scale_y_continuous(
+    breaks = seq(0, 100, 25),
+    limits = c(0, 100),
+    labels = function(x) paste0(x, "%")
+  ) +
+  scale_fill_manual(
+    values = c(
+      "Age 0-17" = "#DCEAF7",
+      "Age 18-39" = "#A6CEE3",
+      "Age 40-64" = "#5B9BD5",
+      "Age 65 and over" = "#1F4E79"
+    )
+  ) +
+  labs(
+    title = "Age Distribution Across the Top Three IPLAN Priorities",
+    subtitle = "Population age composition by most frequently identified Priority 1 topics",
+    x = "IPLAN Priority 1",
+    y = "Percentage of Population",
+    fill = "Age Group"
+  ) +
+  theme_minimal(base_size = 11) +
+  theme(
+    plot.title = element_text(face = "bold", size = 14),
+    axis.text.y = element_text(size = 9),
+    legend.position = "bottom"
+  )
+
+age_plot
+
+```
+
+## Poverty and Uninsured
+```{r}
+
+library(scales)
+
+# 1. Calculate uninsured rate
+final_merged <- final_merged %>%
+  mutate(
+    Uninsured_Rate = (`Uninsured Population` / Population) * 100
+  )
+
+
+# 2. Identify top three IPLAN Priority 1 topics
+top3_iplan <- final_merged %>%
+  filter(
+    !is.na(`Priority 1_IPLAN`),
+    `Priority 1_IPLAN` != ""
+  ) %>%
+  count(`Priority 1_IPLAN`, sort = TRUE) %>%
+  slice_head(n = 3) %>%
+  pull(`Priority 1_IPLAN`)
+
+
+# 3. Categorize counties by poverty and uninsured rate
+priority_social <- final_merged %>%
+  mutate(
+    Poverty_Group = if_else(
+      `Poverty Rate` >= median(`Poverty Rate`, na.rm = TRUE),
+      "Higher Poverty",
+      "Lower Poverty"
+    ),
+    Uninsured_Group = if_else(
+      Uninsured_Rate >= median(Uninsured_Rate, na.rm = TRUE),
+      "Higher Uninsured",
+      "Lower Uninsured"
+    )
+  ) %>%
+  filter(`Priority 1_IPLAN` %in% top3_iplan) %>%
+  distinct(County, .keep_all = TRUE)
+
+
+# 4. Calculate percentages for poverty
+poverty_percentage <- priority_social %>%
+  count(`Priority 1_IPLAN`, Poverty_Group, name = "Counties") %>%
+  group_by(Poverty_Group) %>%
+  mutate(
+    Percentage = Counties / sum(Counties) * 100,
+    Indicator = "Poverty Rate",
+    Group = Poverty_Group
+  ) %>%
+  ungroup()
+
+
+# 5. Calculate percentages for uninsured
+uninsured_percentage <- priority_social %>%
+  count(`Priority 1_IPLAN`, Uninsured_Group, name = "Counties") %>%
+  group_by(Uninsured_Group) %>%
+  mutate(
+    Percentage = Counties / sum(Counties) * 100,
+    Indicator = "Uninsured Rate",
+    Group = Uninsured_Group
+  ) %>%
+  ungroup()
+
+
+# 6. Combine both datasets
+priority_percentage <- bind_rows(
+  poverty_percentage,
+  uninsured_percentage
+)
+
+
+# 7. Create combined graph
+priority_social_plot <- ggplot(
+  priority_percentage,
+  aes(
+    x = `Priority 1_IPLAN`,
+    y = Percentage,
+    fill = Group
+  )
+) +
+  geom_col(
+    position = "dodge",
+    width = 0.7
+  ) +
+  geom_text(
+    aes(label = paste0(round(Percentage, 1), "%")),
+    position = position_dodge(width = 0.7),
+    vjust = -0.3,
+    size = 3
+  ) +
+  facet_wrap(~Indicator) +
+  scale_fill_manual(
+    values = c(
+      "Higher Poverty" = "#1F4E79",
+      "Lower Poverty" = "#A6CEE3",
+      "Higher Uninsured" = "#E15759",
+      "Lower Uninsured" = "#F4A6A6"
+    )
+  ) +
+  scale_x_discrete(labels = label_wrap(15)) +
+  scale_y_continuous(
+ breaks = seq(0, 100, 20),
+    limits = c(0, 110),
+    labels = function(x) paste0(x, "%")
+  )+
+  labs(
+    title = "Socioeconomic Characteristics Across Top IPLAN Priorities",
+    subtitle = "Percentage distribution of counties by poverty and uninsured levels",
+    x = "IPLAN Priority 1",
+    y = "Percentage of Counties",
+    fill = "County Category"
+  ) +
+  guides(fill = guide_legend(nrow = 2, byrow = TRUE)) +
+  theme_minimal(base_size = 12) +
+  theme(
+    plot.title = element_text(face = "bold", size = 15, margin = margin(b = 4)),
+    plot.subtitle = element_text(color = "gray30", size = 11, margin = margin(b = 15)),
+    strip.text = element_text(face = "bold", size = 12), # Facet titles
+    axis.text.x = element_text(angle = 0, hjust = 0.5, vjust = 1, size = 8),
+    axis.title.x = element_text(margin = margin(t = 12), face = "bold"),
+    axis.title.y = element_text(margin = margin(r = 10), face = "bold"),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor = element_blank(),
+    legend.position = "bottom",
+    legend.title = element_text(face = "bold")
+  )
+
+
+# 8. Display graph
+priority_social_plot
+
+```
+
+```{r}
+
+# Save IPLAN Option 2 top three graph
+ggsave(
+  "graph/soca.png",
+  priority_social_plot,
+  width = 10,
+  height = 6,
+  dpi = 300
+)
+
+
+```
+
+```{r}
+
+library(tidyverse)
+library(gt)
+
+# 1. Deduplicate to unique counties and compute standardized rates/percentages
+county_desc_data <- final_merged %>%
+  distinct(County, .keep_all = TRUE) %>%
+  mutate(
+    # Convert raw demographic counts to % of county population
+    Pct_Age_0_17 = (`Age 0-17` / Population) * 100,
+    Pct_Age_65_Plus = (`Age 65 and over` / Population) * 100,
+    Pct_White = (White / Population) * 100,
+    Pct_Black = (`Black or African American` / Population) * 100,
+    Pct_Hispanic = (Hispanic / Population) * 100,
+    Pct_Asian_NHPI = (`Asian, Native Hawaiian, or Pacific Islander` / Population) * 100,
+    Pct_Foreign_Born = (`Forgein Born` / Population) * 100, # Adjust spelling if fixed in your df
+    
+    # Standardize Poverty and Uninsured metrics (Rates per 100,000 + Percentages)
+    Poverty_Per_100k = (`County Poverty per Persons` / Population) * 100000,
+    Poverty_Rate_Pct = `Poverty Rate` * 100, # Converts 0.12 -> 12.0%
+    Uninsured_Per_100k = (`Uninsured Population` / Population) * 100000,
+    Uninsured_Rate_Pct = Uninsured_Rate
+  ) %>%
+  select(
+    `Total County Population` = Population,
+    `Rurality Score (RUCC 1–9)` = Rurality,
+    `Median Household Income ($)` = `Median Household Income`,
+    `Poverty Rate (%)` = Poverty_Rate_Pct,
+    `Poverty per 100,000` = Poverty_Per_100k,
+    `Uninsured Rate (%)` = Uninsured_Rate_Pct,
+    `Uninsured per 100,000` = Uninsured_Per_100k,
+    `Age 0–17 (%)` = Pct_Age_0_17,
+    `Age 65 and Over (%)` = Pct_Age_65_Plus,
+    `White (%)` = Pct_White,
+    `Black or African American (%)` = Pct_Black,
+    `Hispanic or Latino (%)` = Pct_Hispanic,
+    `Asian / NHPI (%)` = Pct_Asian_NHPI,
+    `Foreign-Born (%)` = Pct_Foreign_Born
+  )
+
+# 2. Compute summary statistics across unique counties
+summary_table_df <- county_desc_data %>%
+  pivot_longer(everything(), names_to = "Variable", values_to = "Value") %>%
+  group_by(Variable) %>%
+  summarise(
+    N = sum(!is.na(Value)),
+    Mean = mean(Value, na.rm = TRUE),
+    SD = sd(Value, na.rm = TRUE),
+    Median = median(Value, na.rm = TRUE),
+    Min = min(Value, na.rm = TRUE),
+    Max = max(Value, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  # Preserve exact logical ordering
+  mutate(Variable = factor(Variable, levels = names(county_desc_data))) %>%
+  arrange(Variable)
+
+# 3. Format into a publication-ready table using gt
+desc_stats_table <- summary_table_df %>%
+  gt() %>%
+  tab_header(
+    title = md("**Descriptive Statistics**"),
+    subtitle = "Illinois County Demographic and Socioeconomic Characteristics (Unique Counties)"
+  ) %>%
+  fmt_number(
+    columns = c(Mean, SD, Median, Min, Max),
+    decimals = 2
+  ) %>%
+  fmt_number(
+    columns = N,
+    decimals = 0
+  ) %>%
+  cols_align(
+    align = "left",
+    columns = Variable
+  ) %>%
+  cols_align(
+    align = "right",
+    columns = c(N, Mean, SD, Median, Min, Max)
+  ) %>%
+  tab_source_note(
+    source_note = "Note: Statistics are calculated across unique counties represented in final_merged. Demographic subgroups, poverty, and uninsured metrics are standardized as percentages or rates per 100,000 residents."
+  ) %>%
+  tab_options(
+    table.font.size = px(12),
+    heading.title.font.size = px(16),
+    heading.subtitle.font.size = px(12),
+    column_labels.font.weight = "bold",
+    table.width = pct(100)
+  )
+
+# Display table (or save via gtsave(desc_stats_table, "desc_stats_fixed.png"))
+desc_stats_table
+
+```
+
+## Save
+
+```{r}
+
+gtsave(desc_stats_table, filename = "descriptive_statistics.png")
+```
+
+```{r}
+
+# ------------------------------------------
+# 1. IPLAN OVERLAP
+# Uses the existing cook_chicago dataset
+# ------------------------------------------
+
+# Extract unique priorities for each area
+ucook_iplan <- cook_chicago %>%
+  filter(Area == "Suburban Cook") %>%
+  pull(Topic) %>%
+  as.character() %>%
+  str_trim() %>%
+  unique()
+
+chicago_iplan1 <- cook_chicago %>%
+  filter(Area == "Chicago") %>%
+  pull(Topic) %>%
+  as.character() %>%
+  str_trim() %>%
+  unique()
+
+iplan_topics <- final_merged %>%
+  filter(!is.na(Geographic_Group), Geographic_Group != "") %>%
+  select(Geographic_Group, ends_with("_IPLAN")) %>%
+  pivot_longer(
+    cols = ends_with("_IPLAN"),
+    names_to = "Priority_Rank",
+    values_to = "Topic"
+  ) %>%
+  mutate(
+    Topic = str_remove(Topic, "_IPLAN$"),
+    Topic = str_trim(Topic)
+  ) %>%
+  filter(!is.na(Topic), Topic != "") %>%
+  distinct(Geographic_Group, Topic)
+
+rural_iplan <- iplan_topics %>%
+  filter(Geographic_Group == "Rural") %>%
+  pull(Topic) %>% unique()
+
+sncook_iplan <- iplan_topics %>%
+  filter(Geographic_Group == "Suburban Non-Cook") %>%
+  pull(Topic) %>% unique()
+
+scook_iplan <- iplan_topics %>%
+  filter(Geographic_Group == "Suburban Cook") %>%
+  pull(Topic) %>% unique()
+
+
+# ------------------------------------------
+# 2. CHNA OVERLAP
+# ------------------------------------------
+
+chna_topics <- final_merged %>%
+  filter(!is.na(Geographic_Group), Geographic_Group != "") %>%
+  select(Geographic_Group, ends_with("_CHNA")) %>%
+  pivot_longer(
+    cols = ends_with("_CHNA"),
+    names_to = "Priority_Rank",
+    values_to = "Topic"
+  ) %>%
+  mutate(
+    Topic = str_remove(Topic, "_CHNA$"),
+    Topic = str_trim(Topic)
+  ) %>%
+  filter(!is.na(Topic), Topic != "") %>%
+  distinct(Geographic_Group, Topic)
+
+# Extract priorities for each area
+chicago_chna1 <- chna_topics %>%
+  filter(Geographic_Group == "Chicago") %>%
+  pull(Topic) %>% unique()
+
+scook_chna <- chna_topics %>%
+  filter(Geographic_Group == "Suburban Cook") %>%
+  pull(Topic) %>% unique()
+
+rural_chna <- chna_topics %>%
+  filter(Geographic_Group == "Rural") %>%
+  pull(Topic) %>% unique()
+
+ucook_chna <- chna_topics %>%
+  filter(Geographic_Group == "Urban Non-Cook") %>%
+  pull(Topic) %>% unique()
+
+sncook_chna <- chna_topics %>%
+  filter(Geographic_Group == "Suburban Non-Cook") %>%
+  pull(Topic) %>% unique()
+
+
+# ------------------------------------------
+# 3. GEOGRAPHIC GROUP CHNA vs IPLAN OVERLAP
+# ------------------------------------------
+
+# Organize CHNA priorities
+chna_groups <- list(
+  "Rural" = rural_chna,
+  "Suburban Cook" = scook_chna,
+  "Suburban Non-Cook" = sncook_chna,
+  "Urban Non-Cook" = ucook_chna,
+  "Chicago" = chicago_chna1
+)
+
+# Organize IPLAN priorities
+iplan_groups <- list(
+  "Rural" = rural_iplan,
+  "Suburban Cook" = scook_iplan,
+  "Suburban Non-Cook" = sncook_iplan,
+  "Urban Non-Cook" = ucook_iplan,
+  "Chicago" = chicago_iplan1
+)
+
+# Clean priorities
+clean_topics <- function(x) {
+  x <- str_trim(as.character(x))
+  unique(x[!is.na(x) & x != ""])
+}
+
+chna_groups <- lapply(chna_groups, clean_topics)
+iplan_groups <- lapply(iplan_groups, clean_topics)
+
+# Calculate overlap between CHNA and IPLAN
+calculate_cross_overlap <- function(chna_groups, iplan_groups) {
+
+  purrr::map_dfr(names(chna_groups), function(group_name) {
+
+    chna <- chna_groups[[group_name]]
+    iplan <- iplan_groups[[group_name]]
+
+    shared <- base::intersect(chna, iplan)
+    all_unique <- unique(c(chna, iplan))
+
+    tibble(
+      Geographic_Group = group_name,
+      Shared_Priorities = length(shared),
+      Total_Unique_Priorities = length(all_unique),
+      Overlap_Percentage = if (length(all_unique) == 0) {
+        NA_real_
+      } else {
+        round(length(shared) / length(all_unique) * 100, 1)
+      }
+    )
+  })
+}
+
+group_overlap <- calculate_cross_overlap(
+  chna_groups,
+  iplan_groups
+)
+
+
+# ------------------------------------------
+# 4. TOTAL CHNA vs IPLAN OVERLAP
+# ------------------------------------------
+
+all_chna <- unique(unlist(chna_groups))
+all_iplan <- unique(unlist(iplan_groups))
+
+shared_chna_iplan <- base::intersect(
+  all_chna,
+  all_iplan
+)
+
+all_unique_chna_iplan <- unique(c(
+  all_chna,
+  all_iplan
+))
+
+total_overlap <- tibble(
+  Geographic_Group = "Total",
+  Shared_Priorities = length(shared_chna_iplan),
+  Total_Unique_Priorities = length(all_unique_chna_iplan),
+  Overlap_Percentage = if (length(all_unique_chna_iplan) == 0) {
+    NA_real_
+  } else {
+    round(
+      length(shared_chna_iplan) /
+        length(all_unique_chna_iplan) * 100, 1
+    )
+  }
+)
+
+overlap_results <- bind_rows(
+  group_overlap,
+  total_overlap
+)
+
+overlap_results
+
+
+# ------------------------------------------
+# 5. DISPLAY ALL SHARED PRIORITIES
+# ------------------------------------------
+
+all_shared_priorities <- bind_rows(
+
+  # Geographic group shared priorities
+  purrr::map_dfr(names(chna_groups), function(group_name) {
+
+    shared <- base::intersect(
+      chna_groups[[group_name]],
+      iplan_groups[[group_name]]
+    )
+
+    tibble(
+      Geographic_Group = group_name,
+      Shared_Priority = shared
+    )
+  }),
+
+  # Overall shared priorities
+  tibble(
+    Geographic_Group = "Total",
+    Shared_Priority = shared_chna_iplan
+  )
+)
+
+all_shared_priorities
+
+```
+```{r}
+# Install if needed
+# install.packages(c("gt", "webshot2"))
+
+library(gt)
+
+# Create graph folder if it doesn't exist
+dir.create(
+  "/Users/kmcdaniel/Desktop/apex/graph",
+  recursive = TRUE,
+  showWarnings = FALSE
+)
+
+# Save table
+overlap_results %>%
+  gt() %>%
+  tab_header(
+    title = "CHNA and IPLAN Priority Overlap",
+    subtitle = "Alignment of Shared Health Priorities Across Illinois Geographic Groups"
+  ) %>%
+  cols_label(
+    Geographic_Group = "Geographic Group",
+    Shared_Priorities = "Shared Priorities",
+    Total_Unique_Priorities = "Total Unique Priorities",
+    Overlap_Percentage = "Overlap (%)"
+  ) %>%
+  fmt_number(
+    columns = Overlap_Percentage,
+    decimals = 1
+  ) %>%
+  gtsave(
+    "/Users/kmcdaniel/Desktop/apex/graph/priority_overlap.png"
+  )
+
+```
+
+
+
+

@@ -27,7 +27,7 @@ hospital and community health priorities.
 ## Interactive County Map
 
 <iframe
-  src="map.html"
+  src="graph/map.html"
   width="100%"
   height="700"
   style="border: none;">

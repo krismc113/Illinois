@@ -738,7 +738,7 @@ map <- htmlwidgets::prependContent(
 ```{r}
 
 output_folder <- path.expand(
-  "~/Desktop/apex/graph"
+  "~/Desktop/apex/_site/docs"
 )
 
 if (!dir.exists(output_folder)) {
@@ -750,7 +750,7 @@ if (!dir.exists(output_folder)) {
 
 output_file <- file.path(
   output_folder,
-  "Illinois_County_Health_Indicators.html"
+  "map.html"
 )
 
 htmlwidgets::saveWidget(

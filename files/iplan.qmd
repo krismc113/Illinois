@@ -28,6 +28,7 @@ library(sf)
 data1 <- readr::read_csv("data/iplan.csv")
 
 ```
+
 ## Priorities
 
 ```{r, health-priorities}

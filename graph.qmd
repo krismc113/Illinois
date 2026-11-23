@@ -1,9 +1,7 @@
 ---
-title: "Health Priorities & Population"
+title: "Data Visualization"
 editor: visual
 ---
-
-# Illinois County Public Health Analysis
 
 This section presents a collection of data visualizations examining hospital Community Health Needs Assessments (CHNAs), local health department Illinois Project for Local Assessment of Needs (IPLAN) priorities, and demographic and socioeconomic characteristics across Illinois. Analyses are organized across five geographic groups: Chicago, Suburban Cook, Suburban Non-Cook, Urban Non-Cook, and Rural.
 
@@ -28,7 +26,7 @@ Using hospital assessment data, local health department priorities, U.S. Census 
 ## First-Ranked Hospital CHNA Priorities Across Geographic Groups
 
 <iframe
-  src="_site/docs/chna.html"
+  src="graph/chna.html"
   width="100%"
   height="700"
   style="border: none;">
@@ -41,7 +39,7 @@ Using hospital assessment data, local health department priorities, U.S. Census 
 ## First-Ranked County IPLAN Priorities Across Geographic Groups
 
 <iframe
-  src="_site/docs/iplan.html"
+  src="graph/iplan.html"
   width="100%"
   height="700"
   style="border: none;">

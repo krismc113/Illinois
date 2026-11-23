@@ -7,6 +7,7 @@ project:
     - graph.qmd
     - gismap.qmd
     - method.qmd
+    - findings.qmd
   resources:
     - "*.pdf"
     - "*.html"
@@ -17,12 +18,15 @@ website:
     left:
       - text: Home
         href: index.qmd
-      - text: Visualizations
+      - text: Methodology
+        href: method.qmd
+      - text: Visualization
         href: graph.qmd
       - text: GIS Map
         href: gismap.qmd
-      - text: Methodology
-        href: method.qmd
+      - text: Findings
+        href: findings.qmd
+
 
 format:
   html:
